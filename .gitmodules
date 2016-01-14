@@ -1,0 +1,3 @@
+[submodule "submodules/xah-fly-keys"]
+	path = submodules/xah-fly-keys
+	url = https://github.com/mavbozo/xah-fly-keys
