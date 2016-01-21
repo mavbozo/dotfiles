@@ -1,3 +1,6 @@
 [submodule "submodules/xah-fly-keys"]
 	path = submodules/xah-fly-keys
 	url = https://github.com/mavbozo/xah-fly-keys
+[submodule "submodules/tabbar"]
+	path = submodules/tabbar
+	url = git@github.com:dholm/tabbar.git
