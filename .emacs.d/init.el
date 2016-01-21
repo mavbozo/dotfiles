@@ -9,7 +9,7 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
 
-
+;; install required packages
 (require 'package)
 (add-to-list 'package-archives
              '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/"))
@@ -61,6 +61,11 @@
 (add-to-list 'load-path "~/dotfiles/submodules/tabbar")
 (require 'tabbar)
 
+;; start tabbar
+(tabbar-mode t)
+
+;; disable emacs toolbar
+(tool-bar-mode -1)
 
 ;; Add a buffer modification state indicator in the tab label, and place a
 ;; space around the label to make it looks less crowd.
@@ -81,6 +86,7 @@
   (set-buffer-modified-p t)
   (ztl-modification-state-change))
 (add-hook 'after-save-hook 'ztl-modification-state-change)
+
 
 ;; This doesn't work for revert, I don't know.
 ;;(add-hook 'after-revert-hook 'ztl-modification-state-change)
