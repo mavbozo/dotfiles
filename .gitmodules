@@ -4,3 +4,6 @@
 [submodule "submodules/tabbar"]
 	path = submodules/tabbar
 	url = git@github.com:dholm/tabbar.git
+[submodule "submodules/zenburn-emacs"]
+	path = submodules/zenburn-emacs
+	url = git@github.com:bbatsov/zenburn-emacs.git
