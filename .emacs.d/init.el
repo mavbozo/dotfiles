@@ -51,8 +51,8 @@
 
 
 ;; setup emacs custom file 
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
+;;(setq custom-file "~/.emacs.d/custom.el")
+;;(load custom-file)
 
 ;; visual line mode
 (global-visual-line-mode 1)
