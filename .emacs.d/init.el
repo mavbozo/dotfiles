@@ -24,7 +24,7 @@
   (package-refresh-contents))
 
 ;; My default package
-(defvar my-packages '(helm clojure-mode company magit dash rainbow-delimiters cider inf-clojure yaml-mode markdown-mode  php-mode web-mode s undo-tree)
+(defvar my-packages '(helm clojure-mode company magit dash rainbow-delimiters cider inf-clojure yaml-mode markdown-mode  php-mode web-mode s undo-tree yasnippet)
   "A list of packages to ensure are installed at launch.")
 
 ;; Install those default packages if not yet installed
@@ -148,3 +148,9 @@
 ;; line number
 (global-linum-mode t)
 
+;; yasnippet
+(require 'yasnippet)
+
+(yas-reload-all)
+
+(add-hook 'prog-mode-hook #'yas-minor-mode)
