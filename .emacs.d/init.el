@@ -11,7 +11,7 @@
 
 ;; set a default font
 (when (member "DejaVu Sans Mono" (font-family-list))
-  (set-face-attribute 'default nil :font "DejaVu Sans Mono"))
+  (set-face-attribute 'default nil :font "DejaVu Sans Mono 10"))
 
 ;; install required packages
 (require 'package)
