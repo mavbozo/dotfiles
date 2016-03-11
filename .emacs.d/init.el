@@ -48,7 +48,8 @@
 (global-set-key (kbd "<escape>") 'xah-fly-command-mode-activate)
 ;; toggle xah-fly-keys
 (global-set-key (kbd "<f7>") 'xah-fly-keys)
-
+;; make key 【end】 to activate insertion mode.
+(global-set-key (kbd "<end>") 'xah-fly-insert-mode-activate)
 
 ;; setup emacs custom file 
 ;;(setq custom-file "~/.emacs.d/custom.el")
@@ -150,6 +151,9 @@
 
 ;; yasnippet
 (require 'yasnippet)
+
+(setq yas-snippet-dirs
+      '("../submodules/yasnippet-snippets"))
 
 (yas-reload-all)
 
