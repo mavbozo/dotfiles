@@ -24,7 +24,7 @@
   (package-refresh-contents))
 
 ;; My default package
-(defvar my-packages '(helm clojure-mode company magit dash rainbow-delimiters cider inf-clojure yaml-mode markdown-mode  php-mode web-mode s undo-tree yasnippet)
+(defvar my-packages '(helm clojure-mode company magit dash rainbow-delimiters cider inf-clojure yaml-mode markdown-mode emmet-mode php-mode web-mode s undo-tree yasnippet)
   "A list of packages to ensure are installed at launch.")
 
 ;; Install those default packages if not yet installed
@@ -160,3 +160,20 @@
 ;; line number
 (global-linum-mode t)
 
+;; markdown customization
+
+;; (require 'mmm-mode)
+;;; mmm-mode disabled and uninstalled because it made my emacs hang
+
+;; (setq mmm-global-mode 'maybe)
+
+;; clojure in markdown
+;; (mmm-add-classes
+;;  '((markdown-clojure
+;;    :submode clojure-mode
+;;    :front "^```clojure[\n\r]+"
+;;    :back "^```$")))
+
+;; (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-clojure)
+
+;; (setq mmm-parse-when-idle 't)
