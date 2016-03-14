@@ -55,6 +55,15 @@
 ;;(setq custom-file "~/.emacs.d/custom.el")
 ;;(load custom-file)
 
+;; yasnippet
+(require 'yasnippet)
+
+(setq yas-snippet-dirs
+      '("~/dotfiles/submodules/yasnippet-snippets"))
+
+(yas-reload-all)
+
+
 ;; visual line mode
 (global-visual-line-mode 1)
 
@@ -104,6 +113,8 @@
 ;; clojure mode customizations
 (add-hook 'clojure-mode-hook 'subword-mode)
 
+(add-hook 'clojure-mode-hook #'yas-minor-mode)
+
 ;; inferior clojure hook
 ;; (add-hook 'clojure-mode-hook #'inf-clojure-minor-mode)
 
@@ -149,12 +160,3 @@
 ;; line number
 (global-linum-mode t)
 
-;; yasnippet
-(require 'yasnippet)
-
-(setq yas-snippet-dirs
-      '("../submodules/yasnippet-snippets"))
-
-(yas-reload-all)
-
-(add-hook 'prog-mode-hook #'yas-minor-mode)
