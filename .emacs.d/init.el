@@ -179,5 +179,4 @@
 ;; (setq mmm-parse-when-idle 't)
 
 ;; org-mode customization
-;; org mode syntax color embedded source code
 (setq org-src-fontify-natively t)
