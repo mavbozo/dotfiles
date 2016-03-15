@@ -177,3 +177,7 @@
 ;; (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-clojure)
 
 ;; (setq mmm-parse-when-idle 't)
+
+;; org-mode customization
+;; org mode syntax color embedded source code
+(setq org-src-fontify-natively t)
