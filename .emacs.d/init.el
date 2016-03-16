@@ -33,6 +33,15 @@
     (package-install p)))
 
 
+;; yasnippet
+(require 'yasnippet)
+
+(setq yas-snippet-dirs
+      '("~/dotfiles/submodules/yasnippet-snippets"))
+
+(yas-reload-all)
+
+
 ;; set undo
 (require 'undo-tree)
 (global-undo-tree-mode 1)
@@ -54,14 +63,6 @@
 ;; setup emacs custom file 
 ;;(setq custom-file "~/.emacs.d/custom.el")
 ;;(load custom-file)
-
-;; yasnippet
-(require 'yasnippet)
-
-(setq yas-snippet-dirs
-      '("~/dotfiles/submodules/yasnippet-snippets"))
-
-(yas-reload-all)
 
 
 ;; visual line mode
