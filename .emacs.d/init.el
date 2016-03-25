@@ -181,3 +181,6 @@
 
 ;; org-mode customization
 (setq org-src-fontify-natively t)
+
+
+(setq tramp-default-method "ssh")
