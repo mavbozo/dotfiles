@@ -129,6 +129,9 @@
 
 (setq cider-auto-select-error-buffer nil)
 
+(setq cider-refresh-before-fn "dev/stop"
+      cider-refresh-after-fn "dev/go")
+
 ;; highlight matching paren
 (show-paren-mode 1)
 

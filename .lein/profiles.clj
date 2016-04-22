@@ -10,12 +10,15 @@
  :mavbozo {
            ;;:repl-options {:prompt (fn [ns] (str "[" *ns* "]" \newline "=> "))}
            :dependencies [[spyscope "0.1.5"]
+                          
                           [clojure-complete "0.2.3"]
                           [org.clojure/tools.nrepl "0.2.12"]
                           [leiningen #=(leiningen.core.main/leiningen-version)]
                           [io.aviso/pretty "0.1.8"]
                           [im.chit/vinyasa "0.3.0"]]
            :plugins [[cider/cider-nrepl "0.11.0"]
+                     [jonase/eastwood "0.2.3"]
+                     [lein-ns-dep-graph "0.1.0-SNAPSHOT"]
                      ]
            :injections 
            [(require 'spyscope.core)
