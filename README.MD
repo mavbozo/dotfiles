@@ -1,5 +1,6 @@
 install
 
+```shell
 git clone
 cd dotfiles
 git submodule init
@@ -16,3 +17,5 @@ cd ~/
 mkdir -p .ssh
 cd .ssh
 ln -s ~/dotfiles/.ssh/config 
+
+```
