@@ -132,6 +132,26 @@
 (setq cider-refresh-before-fn "dev/stop"
       cider-refresh-after-fn "dev/go")
 
+
+;; for cider-jack-in-clojurescript
+(setq cider-cljs-lein-repl
+      "(do (require 'figwheel-sidecar.repl-api)
+           (figwheel-sidecar.repl-api/start-figwheel!)
+           (figwheel-sidecar.repl-api/cljs-repl))")
+
+
+;; manually start figwheel server & repl
+(defun cider-figwheel-repl ()
+  (interactive)
+  (save-some-buffers)
+  (with-current-buffer (cider-current-repl-buffer)
+    (goto-char (point-max))
+    (insert "(require 'figwheel-sidecar.repl-api)
+             (figwheel-sidecar.repl-api/start-figwheel!) ; idempotent
+             (figwheel-sidecar.repl-api/cljs-repl)")
+    (cider-repl-return)))
+
+
 ;; highlight matching paren
 (show-paren-mode 1)
 
