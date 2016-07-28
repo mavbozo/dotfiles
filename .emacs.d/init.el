@@ -24,7 +24,7 @@
   (package-refresh-contents))
 
 ;; My default package
-(defvar my-packages '(helm clojure-mode company magit dash rainbow-delimiters cider inf-clojure yaml-mode markdown-mode emmet-mode php-mode web-mode s undo-tree yasnippet)
+(defvar my-packages '(helm clojure-mode company magit dash rainbow-delimiters cider inf-clojure yaml-mode markdown-mode emmet-mode php-mode web-mode s undo-tree yasnippet nginx-mode)
   "A list of packages to ensure are installed at launch.")
 
 ;; Install those default packages if not yet installed
