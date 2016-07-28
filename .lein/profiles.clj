@@ -6,8 +6,9 @@
         }
  :woot {:plugins [[lein-ancient "0.6.7"]]}
  :cider-repl {:dependencies [[org.clojure/tools.nrepl "0.2.12"]]
-              :plugins [[cider/cider-nrepl "0.11.0"]]}
- 
+              :plugins [[cider/cider-nrepl "0.12.0"]]}
+ :repl {:dependencies [[org.clojure/tools.nrepl "0.2.12"]]
+        :plugins [[cider/cider-nrepl "0.12.0"]]} 
  :mavbozo {
            ;;:repl-options {:prompt (fn [ns] (str "[" *ns* "]" \newline "=> "))}
            :repl-options { ; for nREPL dev you really need to limit output
