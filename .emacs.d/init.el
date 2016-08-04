@@ -207,3 +207,4 @@
 
 
 (setq tramp-default-method "ssh")
+(put 'narrow-to-region 'disabled nil)
