@@ -1,0 +1,20 @@
+;;;; Emacs Bookmark Format Version 1 ;;;;
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("znet/machine"
+ (filename . "~/yolo/znet/machine/project.clj")
+ (front-context-string . "(defproject com.")
+ (rear-context-string)
+ (position . 1))
+("todo"
+ (filename . "~/SpiderOak/Archive/T/todo.txt")
+ (front-context-string . "* TODOLIST\n** TO")
+ (rear-context-string . "mode: org -*-\n\n\n")
+ (position . 21))
+("xah-fly-keys"
+ (filename . "~/dotfiles/submodules/xah-fly-keys/xah-fly-keys.el")
+ (front-context-string . ";;; xah-fly-keys")
+ (rear-context-string)
+ (position . 1))
+)
