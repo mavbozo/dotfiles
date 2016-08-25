@@ -133,6 +133,17 @@
       cider-refresh-after-fn "dev/go")
 
 
+(setq cider-repl-prompt-function 'cider-repl-prompt-abbreviated)
+
+(defun cider-dev>reset ()
+  "dev>(reset). convenient function to reset my clojure development system"
+  (interactive)
+  (cider-switch-to-repl-buffer)
+  (insert "(dev/reset)")
+  (cider-repl-return)
+  (cider-switch-to-last-clojure-buffer))
+
+
 ;; for cider-jack-in-clojurescript
 (setq cider-cljs-lein-repl
       "(do (require 'figwheel-sidecar.repl-api)
