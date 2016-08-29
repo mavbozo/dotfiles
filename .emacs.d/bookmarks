@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("znet/php"
+(("init.el"
+ (filename . "~/dotfiles/.emacs.d/init.el")
+ (front-context-string . "(setq default-di")
+ (rear-context-string)
+ (position . 1))
+("znet/php"
  (filename . "~/yolo/www-data/znet-php/klein-router.php")
  (front-context-string . "<?php\n\n\n$klein =")
  (rear-context-string)
