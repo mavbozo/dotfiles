@@ -144,6 +144,16 @@
   (cider-switch-to-last-clojure-buffer))
 
 
+(defun cider-dev>c.t.n.repl/refresh ()
+  "dev>(reset). convenient function to reset my clojure development system"
+  (interactive)
+  (cider-switch-to-repl-buffer)
+  (insert "(clojure.tools.namespace.repl/refresh)")
+  (cider-repl-return)
+  (cider-switch-to-last-clojure-buffer))
+
+
+
 ;; for cider-jack-in-clojurescript
 (setq cider-cljs-lein-repl
       "(do (require 'figwheel-sidecar.repl-api)
@@ -217,5 +227,15 @@
 (setq org-src-fontify-natively t)
 
 
+;; keyboard quit setting
+;;; esc always quits
+;;(define-key minibuffer-local-map [f6] 'minibuffer-keyboard-quit)
+;;(define-key minibuffer-local-ns-map [f6] 'minibuffer-keyboard-quit)
+;;(define-key minibuffer-local-completion-map [f6] 'minibuffer-keyboard-quit)
+;;(define-key minibuffer-local-must-match-map [f6] 'minibuffer-keyboard-quit)
+;;(define-key minibuffer-local-isearch-map [f6] 'minibuffer-keyboard-quit)
+(global-set-key [f6] 'keyboard-escape-quit)
+
+;; tramp setting
 (setq tramp-default-method "ssh")
 (put 'narrow-to-region 'disabled nil)
