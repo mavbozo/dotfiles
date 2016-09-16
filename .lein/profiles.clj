@@ -6,9 +6,9 @@
         }
  :woot {:plugins [[lein-ancient "0.6.7"]]}
  :cider-repl {:dependencies [[org.clojure/tools.nrepl "0.2.12"]]
-              :plugins [[cider/cider-nrepl "0.12.0"]]}
+              :plugins [[cider/cider-nrepl "0.13.0"]]}
  :repl {:dependencies [[org.clojure/tools.nrepl "0.2.12"]]
-        :plugins [[cider/cider-nrepl "0.12.0"]]}
+        :plugins [[cider/cider-nrepl "0.13.0"]]}
  :mavbozo {
            ;;:repl-options {:prompt (fn [ns] (str "[" *ns* "]" \newline "=> "))}
            :repl-options { ; for nREPL dev you really need to limit output
@@ -16,7 +16,7 @@
                           ;;:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]
 
                           }
-               :dependencies [[spyscope "0.1.6-SNAPSHOT"]
+               :dependencies [;;[spyscope "0.1.6-SNAPSHOT"]
                               [com.cemerick/piggieback "0.2.1"]
                           [org.clojure/tools.namespace "0.2.10"]
                           ;;[clojure-complete "0.2.3"]
@@ -24,7 +24,7 @@
                           ;;[io.aviso/pretty "0.1.8"]
                           ;;[im.chit/vinyasa "0.4.7"]
                           [figwheel-sidecar "0.5.3-1"]]
-           :plugins [[cider/cider-nrepl "0.12.0"]
+           :plugins [[cider/cider-nrepl "0.13.0"]
                      [jonase/eastwood "0.2.3"]
                      [lein-ns-dep-graph "0.1.0-SNAPSHOT"]]
            :injections [(require '[fipp.edn :refer (pprint) :rename {pprint fipp}])]
