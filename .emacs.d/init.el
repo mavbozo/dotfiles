@@ -61,7 +61,7 @@
 (global-set-key (kbd "<end>") 'xah-fly-insert-mode-activate)
 
 ;; setup emacs custom file 
-;;(setq custom-file "~/.emacs.d/custom.el")
+(setq custom-file "~/.emacs.d/custom.el")
 ;;(load custom-file)
 
 
