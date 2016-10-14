@@ -1,7 +1,7 @@
 {:pedestal {}
  :yolo {}
  :marginalia {:plugins [[michaelblume/marginalia "0.9.0"]]}
- :user {:signing {:gpg-key "F5619DFC"}
+ :user {:signing {:gpg-key "29B848141065B98D"}
         ;;:plugins [[cider/cider-nrepl "0.9.0"]]
         }
  :woot {:plugins [[lein-ancient "0.6.7"]]}
