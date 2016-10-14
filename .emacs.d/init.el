@@ -239,3 +239,20 @@
 ;; tramp setting
 (setq tramp-default-method "ssh")
 (put 'narrow-to-region 'disabled nil)
+
+
+;; make buffer switch command auto suggestions, also for find-file command
+(ido-mode 1)
+
+(require 'ido)
+
+;; make ido display choices vertically
+(setq ido-separator "\n")
+
+;; display any item that contains the chars you typed
+(setq ido-enable-flex-matching t)
+
+(setq max-mini-window-height 0.5)
+
+;; stop ido suggestion when doing a save-as
+(define-key (cdr ido-minor-mode-map-entry) [remap write-file] nil)
