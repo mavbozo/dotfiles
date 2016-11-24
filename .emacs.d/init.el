@@ -15,8 +15,10 @@
 
 ;; install required packages
 (require 'package)
+;; (add-to-list 'package-archives
+;;              '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives
-             '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/"))
+             '("melpa-stable" . "http://stable.melpa.org/packages/"))
 (package-initialize)
 
 ;; Install package when not installed
@@ -73,39 +75,54 @@
 (load-theme 'base16-default-dark t)
 
 ;; load tabbar
-(add-to-list 'load-path "~/dotfiles/submodules/tabbar")
-(require 'tabbar)
+;; (add-to-list 'load-path "~/dotfiles/submodules/tabbar")
+;; (require 'tabbar)
 
-;; start tabbar
-(tabbar-mode t)
+
+(setq tabbar-ruler-global-tabbar t) ; If you want tabbar
+(setq tabbar-ruler-global-ruler nil) ; if you want a global ruler
+(setq tabbar-ruler-popup-menu nil) ; If you want a popup menu.
+(setq tabbar-ruler-popup-toolbar nil) ; If you want a popup toolbar
+(setq tabbar-ruler-popup-scrollbar nil) ; If you want to only show the
+                                        ; scroll bar when your mouse is moving.
+(require 'tabbar-ruler)
+
+
+
+;; ;; start tabbar
+;; (tabbar-mode t)
 
 ;; disable emacs toolbar
 (tool-bar-mode -1)
 
 ;; Add a buffer modification state indicator in the tab label, and place a
 ;; space around the label to make it looks less crowd.
-(defadvice tabbar-buffer-tab-label (after fixup_tab_label_space_and_flag activate)
-  (setq ad-return-value
-	(if (and (buffer-modified-p (tabbar-tab-value tab))
-		 (buffer-file-name (tabbar-tab-value tab)))
-	    (concat " + " (concat ad-return-value " "))
-	  (concat " " (concat ad-return-value " ")))))
+
+;; (defadvice tabbar-buffer-tab-label (after fixup_tab_label_space_and_flag activate)
+;;   (setq ad-return-value
+;; 	(if (and (buffer-modified-p (tabbar-tab-value tab))
+;; 		 (buffer-file-name (tabbar-tab-value tab)))
+;; 	    (concat " + " (concat ad-return-value " "))
+;; 	  (concat " " (concat ad-return-value " ")))))
 
 ;; Called each time the modification state of the buffer changed.
-(defun ztl-modification-state-change ()
-  (tabbar-set-template tabbar-current-tabset nil)
-  (tabbar-display-update))
+
+;; (defun ztl-modification-state-change ()
+;;   (tabbar-set-template tabbar-current-tabset nil)
+;;   (tabbar-display-update))
 
 ;; First-change-hook is called BEFORE the change is made.
-(defun ztl-on-buffer-modification ()
-  (set-buffer-modified-p t)
-  (ztl-modification-state-change))
-(add-hook 'after-save-hook 'ztl-modification-state-change)
+
+;; (defun ztl-on-buffer-modification ()
+;;   (set-buffer-modified-p t)
+;;   (ztl-modification-state-change))
+;; (add-hook 'after-save-hook 'ztl-modification-state-change)
 
 
 ;; This doesn't work for revert, I don't know.
 ;;(add-hook 'after-revert-hook 'ztl-modification-state-change)
-(add-hook 'first-change-hook 'ztl-on-buffer-modification)
+
+;; (add-hook 'first-change-hook 'ztl-on-buffer-modification)
 
 
 ;; emacs completion mode
