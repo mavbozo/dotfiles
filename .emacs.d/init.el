@@ -15,10 +15,10 @@
 
 ;; install required packages
 (require 'package)
-;; (add-to-list 'package-archives
-;;              '("melpa" . "https://melpa.org/packages/"))
+ ;; (add-to-list 'package-archives
+ ;;              '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives
-             '("melpa-stable" . "http://stable.melpa.org/packages/"))
+            '("melpa-stable" . "http://stable.melpa.org/packages/"))
 (package-initialize)
 
 ;; Install package when not installed
@@ -54,13 +54,7 @@
 (require 'xah-fly-keys)
 (xah-fly-keys 1)
 
-;; set key to activate command mode. (regardless what's current mode)
-(global-set-key (kbd "<f8>") 'xah-fly-command-mode-activate)
-(global-set-key (kbd "<escape>") 'xah-fly-command-mode-activate)
-;; toggle xah-fly-keys
-(global-set-key (kbd "<f7>") 'xah-fly-keys)
-;; make key 【end】 to activate insertion mode.
-(global-set-key (kbd "<end>") 'xah-fly-insert-mode-activate)
+;; (global-set-key (kbd "<end>") 'xah-fly-insert-mode-activate)
 
 ;; setup emacs custom file 
 (setq custom-file "~/.emacs.d/custom.el")
