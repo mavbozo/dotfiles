@@ -10,3 +10,6 @@
 [submodule "submodules/yasnippet-snippets"]
 	path = submodules/yasnippet-snippets
 	url = git@github.com:mavbozo/yasnippet-snippets.git
+[submodule "submodules/base16-gnome-terminal"]
+	path = submodules/base16-gnome-terminal
+	url = git@github.com:chriskempson/base16-gnome-terminal.git
