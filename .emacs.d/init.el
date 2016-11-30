@@ -79,6 +79,8 @@
 (setq tabbar-ruler-popup-toolbar nil) ; If you want a popup toolbar
 (setq tabbar-ruler-popup-scrollbar nil) ; If you want to only show the
                                         ; scroll bar when your mouse is moving.
+
+(require 'tabbar)
 (require 'tabbar-ruler)
 
 
