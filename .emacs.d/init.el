@@ -269,3 +269,10 @@
 
 ;; stop ido suggestion when doing a save-as
 (define-key (cdr ido-minor-mode-map-entry) [remap write-file] nil)
+
+;; set frame-title to file path
+(setq frame-title-format
+      '((:eval (if (buffer-file-name)
+                   (abbreviate-file-name (buffer-file-name))
+                 "%b"))))
+
