@@ -73,15 +73,15 @@
 ;; (require 'tabbar)
 
 
-(setq tabbar-ruler-global-tabbar t) ; If you want tabbar
-(setq tabbar-ruler-global-ruler nil) ; if you want a global ruler
-(setq tabbar-ruler-popup-menu nil) ; If you want a popup menu.
-(setq tabbar-ruler-popup-toolbar nil) ; If you want a popup toolbar
-(setq tabbar-ruler-popup-scrollbar nil) ; If you want to only show the
+;; (setq tabbar-ruler-global-tabbar t) ; If you want tabbar
+;; (setq tabbar-ruler-global-ruler nil) ; if you want a global ruler
+;; (setq tabbar-ruler-popup-menu nil) ; If you want a popup menu.
+;; (setq tabbar-ruler-popup-toolbar nil) ; If you want a popup toolbar
+;; (setq tabbar-ruler-popup-scrollbar nil) ; If you want to only show the
                                         ; scroll bar when your mouse is moving.
 
-(require 'tabbar)
-(require 'tabbar-ruler)
+;; (require 'tabbar)
+;; (require 'tabbar-ruler)
 
 
 
