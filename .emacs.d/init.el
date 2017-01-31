@@ -26,7 +26,7 @@
   (package-refresh-contents))
 
 ;; My default package
-(defvar my-packages '(helm clojure-mode company magit dash rainbow-delimiters cider inf-clojure yaml-mode markdown-mode emmet-mode php-mode web-mode s undo-tree yasnippet nginx-mode base16-theme)
+(defvar my-packages '(helm clojure-mode company magit dash rainbow-delimiters cider inf-clojure yaml-mode markdown-mode emmet-mode php-mode web-mode s undo-tree yasnippet nginx-mode base16-theme which-key)
   "A list of packages to ensure are installed at launch.")
 
 ;; Install those default packages if not yet installed
@@ -52,6 +52,7 @@
 ;; setup xah-fly-keys
 (add-to-list 'load-path "~/dotfiles/submodules/xah-fly-keys")
 (require 'xah-fly-keys)
+(xah-fly-keys-set-layout "qwerty")
 (xah-fly-keys 1)
 
 ;; (global-set-key (kbd "<end>") 'xah-fly-insert-mode-activate)
@@ -247,7 +248,10 @@
 ;;(define-key minibuffer-local-completion-map [f6] 'minibuffer-keyboard-quit)
 ;;(define-key minibuffer-local-must-match-map [f6] 'minibuffer-keyboard-quit)
 ;;(define-key minibuffer-local-isearch-map [f6] 'minibuffer-keyboard-quit)
-(global-set-key [f6] 'keyboard-escape-quit)
+;; (global-set-key [f6] 'keyboard-escape-quit)
+
+(define-key key-translation-map (kbd "ESC") (kbd "C-g"))
+
 
 ;; tramp setting
 (setq tramp-default-method "ssh")
