@@ -18,7 +18,7 @@
                           }
            :dependencies [ ;;[spyscope "0.1.6-SNAPSHOT"]
                           [com.cemerick/piggieback "0.2.1"]
-                          [figwheel-sidecar "0.5.4-6"]
+                          [figwheel-sidecar "0.5.8"]
                           [org.clojure/tools.namespace "0.2.10"]
                           ;;[clojure-complete "0.2.3"]
                           [leiningen #=(leiningen.core.main/leiningen-version)]
