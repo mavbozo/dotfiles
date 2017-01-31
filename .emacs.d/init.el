@@ -276,3 +276,5 @@
                    (abbreviate-file-name (buffer-file-name))
                  "%b"))))
 
+;; disable all custom themes
+;; (mapcar #'disable-theme custom-enabled-themes)
