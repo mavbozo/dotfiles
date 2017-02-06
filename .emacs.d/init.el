@@ -18,7 +18,7 @@
  ;; (add-to-list 'package-archives
  ;;              '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives
-            '("melpa-stable" . "http://stable.melpa.org/packages/"))
+            '("melpa-stable" . "https://stable.melpa.org/packages/"))
 (package-initialize)
 
 ;; Install package when not installed
@@ -55,7 +55,7 @@
 (xah-fly-keys-set-layout "qwerty")
 (xah-fly-keys 1)
 
-;; (global-set-key (kbd "<end>") 'xah-fly-insert-mode-activate)
+(global-set-key (kbd "<end>") 'xah-fly-insert-mode-activate)
 
 ;; setup emacs custom file 
 (setq custom-file "~/.emacs.d/custom.el")
@@ -282,3 +282,21 @@
 
 ;; disable all custom themes
 ;; (mapcar #'disable-theme custom-enabled-themes)
+
+(which-key-mode 1)
+
+;; define my clojure-mode keymap
+;; must use dvorak key
+(xah-fly--define-keys
+ (define-prefix-command 'my-clojure-mode-keymap)
+ '(
+   ("J" . cider-connect) ;; J (Dvorak) -> C (Qwerty)
+   ("." . cider-eval-last-sexp)
+   (";" . cider-switch-to-repl-buffer)
+   ))
+
+
+;; define_the_leader_key_for_my-clojure-mode-keymap
+;; since I use qwerty keybinding, the leader key here is qwerty key
+(define-key xah-fly-leader-key-map (kbd "b") 'my-clojure-mode-keymap)
+
