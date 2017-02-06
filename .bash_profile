@@ -15,3 +15,5 @@ PS1="[\[\033[32m\]\w]\[\033[0m\]\n\[\033[1;36m\]\u\[\033[1;33m\]-> \[\033[0m\\]"
 
 
 alias softlayer-vpn="sudo ~/bin/array_vpnc64 -hostname https://vpn.sng01.softlayer.com -username 'SL274118'"
+
+xmodmap ~/.Xmodmap
