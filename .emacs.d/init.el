@@ -55,6 +55,9 @@
 (xah-fly-keys-set-layout "qwerty")
 (xah-fly-keys 1)
 
+;; remove auto save when moving to command-mode
+(remove-hook 'xah-fly-command-mode-activate-hook 'xah-fly-save-buffer-if-file)
+
 (global-set-key (kbd "<end>") 'xah-fly-insert-mode-activate)
 
 ;; setup emacs custom file 
@@ -290,9 +293,17 @@
 (xah-fly--define-keys
  (define-prefix-command 'my-clojure-mode-keymap)
  '(
+   ("c" . cider-eval-defun-at-point)
+   ("d" . cider-doc)
+   ("E" . cider-eval-last-sexp-to-repl)
    ("J" . cider-connect) ;; J (Dvorak) -> C (Qwerty)
+   ("v n" . cider-eval-ns-form)
+   ("N" . cider-repl-set-ns)
+   ("v u" . cider-eval-region)
+   ("v w" . cider-eval-last-sexp-and-replace)
    ("." . cider-eval-last-sexp)
    (";" . cider-switch-to-repl-buffer)
+
    ))
 
 
@@ -300,3 +311,23 @@
 ;; since I use qwerty keybinding, the leader key here is qwerty key
 (define-key xah-fly-leader-key-map (kbd "b") 'my-clojure-mode-keymap)
 
+;; redo 
+
+
+(defun mavbozo-use-y-caps-as-redo ()
+  (interactive)
+  (xah-fly--define-keys
+   xah-fly-key-map
+   '(("Y" . redo))))
+
+
+(defun mavbozo-use-y-regular-in-insert-mode ()
+  (interactive)
+  (xah-fly--define-keys
+   xah-fly-key-map
+   '(("Y" . nil))))
+
+;; automatic save buffer when switching to command mode
+(add-hook 'xah-fly-command-mode-activate-hook 'mavbozo-use-y-caps-as-redo)
+
+(add-hook 'xah-fly-insert-mode-activate-hook 'mavbozo-use-y-regular-in-insert-mode)
