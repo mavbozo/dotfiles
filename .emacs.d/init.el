@@ -162,7 +162,7 @@
 
 
 (defun cider-dev>c.t.n.repl/refresh ()
-  "dev>(reset). convenient function to reset my clojure development system"
+  "cider-dev>c.t.n.repl/refresh (). convenient function to reset my clojure development system"
   (interactive)
   (cider-switch-to-repl-buffer)
   (insert "(clojure.tools.namespace.repl/refresh)")
@@ -296,11 +296,13 @@
    ("c" . cider-eval-defun-at-point)
    ("d" . cider-doc)
    ("E" . cider-eval-last-sexp-to-repl)
-   ("J" . cider-connect) ;; J (Dvorak) -> C (Qwerty)
+   ("C" . cider-connect) ;; J (Dvorak) -> C (Qwerty)
    ("v n" . cider-eval-ns-form)
    ("N" . cider-repl-set-ns)
    ("v u" . cider-eval-region)
    ("v w" . cider-eval-last-sexp-and-replace)
+   ("q" . cider-dev>reset)
+   ("X" . cider-dev>c.t.n.repl/refresh)
    ("." . cider-eval-last-sexp)
    (";" . cider-switch-to-repl-buffer)
 
