@@ -1,6 +1,33 @@
+
+;; from http://ergoemacs.org/emacs/organize_your_dot_emacs.html
+(defun xah-get-fullpath (@file-relative-path)
+  "Return the full path of *file-relative-path, relative to caller's file location.
+
+Example: If you have this line
+ (xah-get-fullpath \"../xyz.el\")
+in the file at
+ /home/mary/emacs/emacs_lib.el
+then the return value is
+ /home/mary/xyz.el
+Regardless how or where emacs_lib.el is called.
+
+This function solves 2 problems.
+
+① If you have file A, that calls the `load' on a file at B, and B calls `load' on file C using a relative path, then Emacs will complain about unable to find C. Because, emacs does not switch current directory with `load'.
+
+To solve this problem, when your code only knows the relative path of another file C, you can use the variable `load-file-name' to get the current file's full path, then use that with the relative path to get a full path of the file you are interested.
+
+② To know the current file's full path, emacs has 2 ways: `load-file-name' and `buffer-file-name'. If the file is loaded by `load', then `load-file-name' works but `buffer-file-name' doesn't. If the file is called by `eval-buffer', then `load-file-name' is nil. You want to be able to get the current file's full path regardless the file is run by `load' or interactively by `eval-buffer'."
+
+  (concat (file-name-directory (or load-file-name buffer-file-name)) @file-relative-path)
+  )
+
+
 (setq default-directory (getenv "HOME"))  ;; set default directory
 (setq make-backup-files nil) ; stop creating those backup~ files
 (setq auto-save-default nil) ; stop creating those #auto-save# files
+;; backup in one place. flat, no tree structure
+(setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
 
 (setq initial-buffer-choice "~/SpiderOak/Archive/T/todo.txt")
 
@@ -26,22 +53,16 @@
   (package-refresh-contents))
 
 ;; My default package
-(defvar my-packages '(helm clojure-mode company magit dash rainbow-delimiters cider inf-clojure yaml-mode markdown-mode emmet-mode php-mode web-mode s undo-tree yasnippet nginx-mode base16-theme which-key)
+;; (defvar my-packages '(yaml-mode markdown-mode emmet-mode php-mode)	
+;;   "A list of packages to ensure are installed at launch.")
+
+(defvar my-packages '(undo-tree base16-theme which-key cider magit company rainbow-delimiters web-mode sublimity yasnippet yasnippet-snippets nginx-mode php-mode json-mode markdown-mode smartparens)	
   "A list of packages to ensure are installed at launch.")
 
 ;; Install those default packages if not yet installed
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
-
-
-;; yasnippet
-(require 'yasnippet)
-
-(setq yas-snippet-dirs
-      '("~/dotfiles/submodules/yasnippet-snippets"))
-
-(yas-reload-all)
 
 
 ;; set undo
@@ -62,7 +83,7 @@
 
 ;; setup emacs custom file 
 (setq custom-file "~/.emacs.d/custom.el")
-;;(load custom-file)
+(load custom-file)
 
 
 ;; visual line mode
@@ -133,6 +154,37 @@
 
 (add-hook 'clojure-mode-hook #'yas-minor-mode)
 
+(defun mavbozo--clojure-mode-indentation-hook ()
+  ""
+  ;; indentation for om or fulcro's dom
+  (define-clojure-indent
+    (dom/div '1)
+    (dom/form '1)
+    (dom/p '1)
+    (dom/button '1)
+    (dom/span '1)
+    (dom/section '1)
+    (dom/label '1)
+    (dom/h1 '1)
+    (dom/h2 '1)
+    (dom/h3 '1)
+    (dom/h4 '1)
+    (dom/ul '1)
+    (dom/li '1)
+    ;; otplike
+    (proc-defn :defn)
+    (proc-fn :defn)
+    (match :defn))
+
+  (define-clojure-indent
+    (defmutation '(2 :form :form (1)))
+    (defquery-root '(1 :form :form (1))))
+  )
+
+(add-hook 'clojure-mode-hook #'mavbozo--clojure-mode-indentation-hook)
+
+
+
 ;; inferior clojure hook
 ;; (add-hook 'clojure-mode-hook #'inf-clojure-minor-mode)
 
@@ -140,55 +192,7 @@
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
 ;; CIDER setup
-(add-hook 'cider-repl-mode-hook 'subword-mode)
-
-(add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode)
-
-(setq cider-auto-select-error-buffer nil)
-
-(setq cider-refresh-before-fn "dev/stop"
-      cider-refresh-after-fn "dev/go")
-
-
-(setq cider-repl-prompt-function 'cider-repl-prompt-abbreviated)
-
-(defun cider-dev>reset ()
-  "dev>(reset). convenient function to reset my clojure development system"
-  (interactive)
-  (cider-switch-to-repl-buffer)
-  (insert "(dev/reset)")
-  (cider-repl-return)
-  (cider-switch-to-last-clojure-buffer))
-
-
-(defun cider-dev>c.t.n.repl/refresh ()
-  "cider-dev>c.t.n.repl/refresh (). convenient function to reset my clojure development system"
-  (interactive)
-  (cider-switch-to-repl-buffer)
-  (insert "(clojure.tools.namespace.repl/refresh)")
-  (cider-repl-return)
-  (cider-switch-to-last-clojure-buffer))
-
-
-
-;; for cider-jack-in-clojurescript
-(setq cider-cljs-lein-repl
-      "(do (require 'figwheel-sidecar.repl-api)
-           (figwheel-sidecar.repl-api/start-figwheel!)
-           (figwheel-sidecar.repl-api/cljs-repl))")
-
-
-;; manually start figwheel server & repl
-(defun cider-figwheel-repl ()
-  (interactive)
-  (save-some-buffers)
-  (with-current-buffer (cider-current-repl-buffer)
-    (goto-char (point-max))
-    (insert "(require 'figwheel-sidecar.repl-api)
-             (figwheel-sidecar.repl-api/start-figwheel!) ; idempotent
-             (figwheel-sidecar.repl-api/cljs-repl)")
-    (cider-repl-return)))
-
+(load (xah-get-fullpath "sub-init/cider.el"))
 
 ;; highlight matching paren
 (show-paren-mode 1)
@@ -201,10 +205,18 @@
       uniquify-separator ":")
 
 
-
 (require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.htm\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.blade\\.php\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode)) (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode)) (add-to-list 'auto-mode-alist '("\\.[gj]sp\\'" . web-mode)) (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode)) (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode)) (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode)) (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.[gj]sp\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+
 
 (defun my-web-mode-hook ()
   "Hooks for Web mode."
@@ -213,7 +225,6 @@
   (setq web-mode-code-indent-offset 2))
 
 (add-hook 'web-mode-hook 'my-web-mode-hook)
-
 
 ;; emmet-mode hook to other mode
 (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
@@ -288,33 +299,14 @@
 
 (which-key-mode 1)
 
-;; define my clojure-mode keymap
-;; must use dvorak key
-(xah-fly--define-keys
- (define-prefix-command 'my-clojure-mode-keymap)
- '(
-   ("c" . cider-eval-defun-at-point)
-   ("d" . cider-doc)
-   ("E" . cider-eval-last-sexp-to-repl)
-   ("C" . cider-connect) ;; J (Dvorak) -> C (Qwerty)
-   ("v n" . cider-eval-ns-form)
-   ("N" . cider-repl-set-ns)
-   ("v u" . cider-eval-region)
-   ("v w" . cider-eval-last-sexp-and-replace)
-   ("q" . cider-dev>reset)
-   ("X" . cider-dev>c.t.n.repl/refresh)
-   ("." . cider-eval-last-sexp)
-   (";" . cider-switch-to-repl-buffer)
 
-   ))
+(require 'projectile)
+(projectile-mode +1)
+(require 'helm-projectile)
+(helm-projectile-on)
 
 
-;; define_the_leader_key_for_my-clojure-mode-keymap
-;; since I use qwerty keybinding, the leader key here is qwerty key
-(define-key xah-fly-leader-key-map (kbd "b") 'my-clojure-mode-keymap)
-
-;; redo 
-
+;; UNDO REDO
 
 (defun mavbozo-use-y-caps-as-redo ()
   (interactive)
@@ -333,3 +325,67 @@
 (add-hook 'xah-fly-command-mode-activate-hook 'mavbozo-use-y-caps-as-redo)
 
 (add-hook 'xah-fly-insert-mode-activate-hook 'mavbozo-use-y-regular-in-insert-mode)
+
+
+(defun mavbozo-tramp-quit ()
+  (interactive)
+  (tramp-cleanup-all-buffers)
+  (tramp-cleanup-all-connections)
+  (message "Tramp connections and buffers cleaned up"))
+
+
+(defun mavbozo-disable-all-themes ()
+  (interactive)
+  (mapcar #'disable-theme custom-enabled-themes)
+  (message "all custom theme disabled"))
+
+
+(add-to-list 'load-path "~/.emacs.d/command-frequency/")
+(require 'command-frequency)
+(command-frequency-mode 1)
+
+
+(require 'sublimity)
+
+(require 'sublimity-attractive)
+(sublimity-attractive-hide-bars)
+(sublimity-attractive-hide-fringes)
+(sublimity-attractive-hide-vertical-border)
+
+;;
+
+
+;; (load (expand-file-name "~/quicklisp/slime-helper.el"))
+  ;; Replace "sbcl" with the path to your implementation
+;; (setq inferior-lisp-program "sbcl")
+
+;;(when (fboundp 'slime-mode)
+
+  ;;(defun my-slime-mode-config ()
+    "For use in `slime-mode-hook'."
+    ;;(local-unset-key (kbd "SPC"))
+    ;; more stuff here
+    ;;)
+
+  ;;(add-hook 'slime-mode-hook 'my-slime-mode-config)
+
+  ;;)
+
+;;(progn
+  ;; remove space from slime-autodoc-mode-map
+  ;;(define-key slime-autodoc-mode-map (kbd "SPC") nil )
+
+  ;;(define-key slime-mode-indirect-map (kbd "SPC") nil )
+
+  ;;(define-key slime-repl-mode-map (kbd "SPC") nil )
+  ;;(define-key slime-repl-mode-map (kbd ",") nil )
+
+  ;;(define-key slime-editing-map (kbd "SPC") nil )
+
+  
+  
+  ;;)
+
+
+;; mavbozo major mode custom 
+(load (xah-get-fullpath "sub-init/major.el"))

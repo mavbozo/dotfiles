@@ -6,6 +6,8 @@
 
 ! keycode 110 = Home NoSymbol Home
 ! keycode   9 = Escape NoSymbol Escape
+
+! clear Lock
 ! keycode  66 = Caps_Lock NoSymbol Caps_Lock
 
 clear Lock

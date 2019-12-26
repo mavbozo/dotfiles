@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("init.el"
+(("zmm/php"
+ (filename . "~/yolo/www-data/zmm-php/web/project.clj")
+ (front-context-string . "  :url \"http://e")
+ (rear-context-string . "te description\"\n")
+ (position . 101))
+("init.el"
  (filename . "~/dotfiles/.emacs.d/init.el")
  (front-context-string . "(setq default-di")
  (rear-context-string)
