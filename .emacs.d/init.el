@@ -1,4 +1,7 @@
 
+;; workaround for elpa bad request. should be fixed in emacs 26.3
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+
 ;; from http://ergoemacs.org/emacs/organize_your_dot_emacs.html
 (defun xah-get-fullpath (@file-relative-path)
   "Return the full path of *file-relative-path, relative to caller's file location.
@@ -29,9 +32,9 @@ To solve this problem, when your code only knows the relative path of another fi
 ;; backup in one place. flat, no tree structure
 (setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
 
-(setq initial-buffer-choice "~/SpiderOak/Archive/T/todo.txt")
+;;(setq initial-buffer-choice "~/SpiderOak/Archive/T/todo.txt")
 
-(setq org-agenda-files (list "~/SpiderOak/Archive/T/todo.txt"))
+;;(setq org-agenda-files (list "~/SpiderOak/Archive/T/todo.txt"))
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
@@ -56,7 +59,9 @@ To solve this problem, when your code only knows the relative path of another fi
 ;; (defvar my-packages '(yaml-mode markdown-mode emmet-mode php-mode)	
 ;;   "A list of packages to ensure are installed at launch.")
 
-(defvar my-packages '(undo-tree base16-theme which-key cider magit company rainbow-delimiters web-mode sublimity yasnippet yasnippet-snippets nginx-mode php-mode json-mode markdown-mode smartparens)	
+(defvar my-packages '(
+		      ;; undo-tree
+		      base16-theme which-key cider magit company rainbow-delimiters web-mode sublimity yasnippet yasnippet-snippets nginx-mode php-mode json-mode markdown-mode smartparens)	
   "A list of packages to ensure are installed at launch.")
 
 ;; Install those default packages if not yet installed
@@ -66,9 +71,9 @@ To solve this problem, when your code only knows the relative path of another fi
 
 
 ;; set undo
-(require 'undo-tree)
-(global-undo-tree-mode 1)
-(defalias 'redo 'undo-tree-redo)
+;;(require 'undo-tree)
+;;(global-undo-tree-mode 1)
+;;(defalias 'redo 'undo-tree-redo)
 
 ;; setup xah-fly-keys
 (add-to-list 'load-path "~/dotfiles/submodules/xah-fly-keys")
