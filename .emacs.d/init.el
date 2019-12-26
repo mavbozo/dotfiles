@@ -299,11 +299,11 @@ To solve this problem, when your code only knows the relative path of another fi
 
 (which-key-mode 1)
 
-
-(require 'projectile)
-(projectile-mode +1)
-(require 'helm-projectile)
-(helm-projectile-on)
+;; PROJECTILE
+;; (require 'projectile)
+;; (projectile-mode +1)
+;; (require 'helm-projectile)
+;; (helm-projectile-on)
 
 
 ;; UNDO REDO
