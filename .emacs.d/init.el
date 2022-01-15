@@ -32,7 +32,7 @@ To solve this problem, when your code only knows the relative path of another fi
 ;; backup in one place. flat, no tree structure
 (setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
 
-;;(setq initial-buffer-choice "~/SpiderOak/Archive/T/todo.txt")
+(setq initial-buffer-choice (getenv "MY_TODO_FILE"))
 
 ;;(setq org-agenda-files (list "~/SpiderOak/Archive/T/todo.txt"))
 (define-key global-map "\C-cl" 'org-store-link)
@@ -41,7 +41,7 @@ To solve this problem, when your code only knows the relative path of another fi
 
 ;; set a default font
 (when (member "DejaVu Sans Mono" (font-family-list))
-  (set-face-attribute 'default nil :font "DejaVu Sans Mono 10"))
+  (set-face-attribute 'default nil :font "DejaVu Sans Mono 16"))
 
 ;; install required packages
 (require 'package)
@@ -76,7 +76,7 @@ To solve this problem, when your code only knows the relative path of another fi
 ;;(defalias 'redo 'undo-tree-redo)
 
 ;; setup xah-fly-keys
-(add-to-list 'load-path "~/dotfiles/submodules/xah-fly-keys")
+(add-to-list 'load-path "~/yolo/xah-fly-keys")
 (require 'xah-fly-keys)
 (xah-fly-keys-set-layout "qwerty")
 (xah-fly-keys 1)
@@ -236,7 +236,7 @@ To solve this problem, when your code only knows the relative path of another fi
 (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
 
 ;; line number
-(global-linum-mode t)
+;; (global-linum-mode t)
 
 ;; markdown customization
 
@@ -391,6 +391,15 @@ To solve this problem, when your code only knows the relative path of another fi
   
   ;;)
 
-
 ;; mavbozo major mode custom 
 (load (xah-get-fullpath "sub-init/major.el"))
+
+;; change those annoying bell function to Subtly flash the modeline
+;; https://www.emacswiki.org/emacs/AlarmBell
+(setq ring-bell-function
+      (lambda ()
+        (let ((orig-fg (face-foreground 'mode-line)))
+          (set-face-foreground 'mode-line "#F2804F")
+          (run-with-idle-timer 0.1 nil
+                               (lambda (fg) (set-face-foreground 'mode-line fg))
+                               orig-fg))))

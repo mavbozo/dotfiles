@@ -1,19 +1,14 @@
 
+(when (fboundp 'clojure-mode)
+  (setq clojure-toplevel-inside-comment-form t))
 
-(when (fboundp 'cider-mode)
-  ;; disable auto pretty-printing
+(defun mavbozo-cider-mode-hook-fn ()
   (setq cider-print-fn nil)
-
-
-  (add-hook 'cider-repl-mode-hook 'subword-mode)
-
-  (add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode)
-
+  
   (setq cider-auto-select-error-buffer nil)
 
   (setq cider-refresh-before-fn "dev/stop"
 	cider-refresh-after-fn "dev/go")
-
 
   (setq cider-repl-prompt-function 'cider-repl-prompt-abbreviated)
 
@@ -45,9 +40,8 @@
     (cider-switch-to-repl-buffer)
     (cider-repl-clear-output))
 
-
-  (setq my-clojure-mode-key-map (make-sparse-keymap))
-
+  (define-prefix-command 'my-clojure-mode-key-map)
+  
   (define-key my-clojure-mode-key-map (kbd "c c") 'cider-eval-defun-at-point)
   (define-key my-clojure-mode-key-map (kbd "c e") 'cider-eval-last-sexp)
   (define-key my-clojure-mode-key-map (kbd "c C") 'cider-connect)
@@ -65,9 +59,20 @@
   (define-key my-clojure-mode-key-map (kbd "c X") 'cider-dev>c.t.n.repl/refresh)
   (define-key my-clojure-mode-key-map (kbd "c z") 'cider-switch-to-repl-buffer)
   (define-key my-clojure-mode-key-map (kbd "c ;") 'cider-switch-to-last-clojure-buffer)
+  (define-key my-clojure-mode-key-map (kbd "c M-;") 'cider-eval-defun-to-comment)
 
 
-  ;; define_the_leader_key_for_my-clojure-mode-keymap
-  ;; since I use qwerty keybinding, the leader key here is qwerty key
+  ;; ;; define_the_leader_key_for_my-clojure-mode-keymap
+  ;; ;; since I use qwerty keybinding, the leader key here is qwerty key
   (define-key xah-fly-leader-key-map (kbd "b") my-clojure-mode-key-map)
+  
+  )
+
+(when (fboundp 'cider-mode)
+  ;; disable auto pretty-printing
+
+  (add-hook 'cider-repl-mode-hook 'subword-mode)
+  (add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'cider-repl-mode-hook 'mavbozo-cider-mode-hook-fn )
+  
   )
