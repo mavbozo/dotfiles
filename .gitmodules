@@ -1,0 +1,3 @@
+[submodule "submodules/xah-fly-keys"]
+	path = submodules/xah-fly-keys
+	url = git@github.com:xahlee/xah-fly-keys.git
