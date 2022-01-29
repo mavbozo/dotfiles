@@ -1,3 +1,54 @@
+;; You will most likely need to adjust this font size for your system!
+(defvar mavbozo/default-font-size 200)
+(defvar mavbozo/default-variable-font-size 200)
+
+;; Make frame transparency overridable
+(defvar mavbozo/frame-transparency '(90 . 90))
+
+;; set gc cons higher during startup
+;; The default is 800 kilobytes.  Measured in bytes.
+(setq gc-cons-threshold (* 50 1000 1000))
+
+;; STARTUP TIME
+(defun mavbozo/display-startup-time ()
+  (message "Emacs loaded in %s with %d garbage collections."
+           (format "%.2f seconds"
+                   (float-time
+                   (time-subtract after-init-time before-init-time)))
+           gcs-done))
+
+(add-hook 'emacs-startup-hook #'mavbozo/display-startup-time)
+
+
+(setq inhibit-startup-message t)
+
+;; THEMING
+
+(scroll-bar-mode -1)        ; Disable visible scrollbar
+(tool-bar-mode -1)          ; Disable the toolbar
+(tooltip-mode -1)           ; Disable tooltips
+(set-fringe-mode 10)        ; Give some breathing room
+
+(menu-bar-mode -1)            ; Disable the menu bar
+
+(column-number-mode)
+(global-display-line-numbers-mode t)
+
+;; Set frame transparency
+(set-frame-parameter (selected-frame) 'alpha mavbozo/frame-transparency)
+(add-to-list 'default-frame-alist `(alpha . ,mavbozo/frame-transparency))
+(set-frame-parameter (selected-frame) 'fullscreen 'maximized)
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+
+
+;; Disable line numbers for some modes
+(dolist (mode '(org-mode-hook
+                term-mode-hook
+                shell-mode-hook
+                treemacs-mode-hook
+                eshell-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 ;; workaround for elpa bad request. should be fixed in emacs 26.3
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
@@ -34,49 +85,53 @@ To solve this problem, when your code only knows the relative path of another fi
 
 (setq initial-buffer-choice (getenv "MY_TODO_FILE"))
 
-;;(setq org-agenda-files (list "~/SpiderOak/Archive/T/todo.txt"))
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
+(setq org-agenda-files (list (getenv "MY_TODO_FILE")))
+
+;; ORG MODE??
+;; (define-key global-map "\C-cl" 'org-store-link)
+;; (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
 
+;; FONT
 ;; set a default font
-(when (member "DejaVu Sans Mono" (font-family-list))
-  (set-face-attribute 'default nil :font "DejaVu Sans Mono 16"))
+;; (set-face-attribute 'default nil :font "Fira Code Retina" :height mavbozo/default-font-size)
 
-;; install required packages
+;; Set the fixed pitch face
+;; (set-face-attribute 'fixed-pitch nil :font "Fira Code Retina" :height mavbozo/default-font-size)
+(when (member "DejaVu Sans Mono" (font-family-list))
+  (set-face-attribute 'default nil :font "DejaVu Sans Mono 18"))
+
+
+;; WHERE EMACS SAVE THE CUSTOMIZATION
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file)
+
+
+;; INITIALIZE PACKAGE SOURCES
 (require 'package)
- ;; (add-to-list 'package-archives
- ;;              '("melpa" . "https://melpa.org/packages/"))
-(add-to-list 'package-archives
-            '("melpa-stable" . "https://stable.melpa.org/packages/"))
+
+(setq package-archives '(("melpa-stable" . "https://stable.melpa.org/packages/")
+                         ("org" . "https://orgmode.org/elpa/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")))
 (package-initialize)
 
-;; Install package when not installed
+;; INSTALL PACKAGE WHEN NOT INSTALLED
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-;; My default package
-;; (defvar my-packages '(yaml-mode markdown-mode emmet-mode php-mode)	
-;;   "A list of packages to ensure are installed at launch.")
+;; INITIALIZE USE-PACKAGE ON NON-LINUX PLATFORMS
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
 
-(defvar my-packages '(
-		      ;; undo-tree
-		      base16-theme which-key cider magit company rainbow-delimiters web-mode sublimity yasnippet yasnippet-snippets nginx-mode php-mode json-mode markdown-mode smartparens)	
-  "A list of packages to ensure are installed at launch.")
+;; This is only needed once, near the top of the file
+(eval-when-compile
+  ;; Following line is not needed if use-package.el is in ~/.emacs.d
+  (add-to-list 'load-path (xah-get-fullpath ".emacs.d/ext-packages/use-package"))
+  (require 'use-package)
+  (setq use-package-always-ensure t))
 
-;; Install those default packages if not yet installed
-(dolist (p my-packages)
-  (when (not (package-installed-p p))
-    (package-install p)))
-
-
-;; set undo
-;;(require 'undo-tree)
-;;(global-undo-tree-mode 1)
-;;(defalias 'redo 'undo-tree-redo)
-
-;; setup xah-fly-keys
-(add-to-list 'load-path "~/yolo/xah-fly-keys")
+;; SETUP XAH-FLY-KEYS
+(add-to-list 'load-path ".emacs.d/ext-packages/xah-fly-keys")
 (require 'xah-fly-keys)
 (xah-fly-keys-set-layout "qwerty")
 (xah-fly-keys 1)
@@ -86,320 +141,113 @@ To solve this problem, when your code only knows the relative path of another fi
 
 (global-set-key (kbd "<end>") 'xah-fly-insert-mode-activate)
 
-;; setup emacs custom file 
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
-
-
-;; visual line mode
-(global-visual-line-mode 1)
-
-;; zenburn theme
-;; (add-to-list 'custom-theme-load-path "~/dotfiles/submodules/zenburn-emacs")
-(load-theme 'base16-default-dark t)
-
-;; load tabbar
-;; (add-to-list 'load-path "~/dotfiles/submodules/tabbar")
-;; (require 'tabbar)
-
-
-;; (setq tabbar-ruler-global-tabbar t) ; If you want tabbar
-;; (setq tabbar-ruler-global-ruler nil) ; if you want a global ruler
-;; (setq tabbar-ruler-popup-menu nil) ; If you want a popup menu.
-;; (setq tabbar-ruler-popup-toolbar nil) ; If you want a popup toolbar
-;; (setq tabbar-ruler-popup-scrollbar nil) ; If you want to only show the
-                                        ; scroll bar when your mouse is moving.
-
-;; (require 'tabbar)
-;; (require 'tabbar-ruler)
-
-
-
-;; ;; start tabbar
-;; (tabbar-mode t)
-
-;; disable emacs toolbar
-(tool-bar-mode -1)
-
-;; Add a buffer modification state indicator in the tab label, and place a
-;; space around the label to make it looks less crowd.
-
-;; (defadvice tabbar-buffer-tab-label (after fixup_tab_label_space_and_flag activate)
-;;   (setq ad-return-value
-;; 	(if (and (buffer-modified-p (tabbar-tab-value tab))
-;; 		 (buffer-file-name (tabbar-tab-value tab)))
-;; 	    (concat " + " (concat ad-return-value " "))
-;; 	  (concat " " (concat ad-return-value " ")))))
-
-;; Called each time the modification state of the buffer changed.
-
-;; (defun ztl-modification-state-change ()
-;;   (tabbar-set-template tabbar-current-tabset nil)
-;;   (tabbar-display-update))
-
-;; First-change-hook is called BEFORE the change is made.
-
-;; (defun ztl-on-buffer-modification ()
-;;   (set-buffer-modified-p t)
-;;   (ztl-modification-state-change))
-;; (add-hook 'after-save-hook 'ztl-modification-state-change)
-
-
-;; This doesn't work for revert, I don't know.
-;;(add-hook 'after-revert-hook 'ztl-modification-state-change)
-
-;; (add-hook 'first-change-hook 'ztl-on-buffer-modification)
-
-
-;; emacs completion mode
-(add-hook 'after-init-hook 'global-company-mode)
-
-;; clojure mode customizations
-(add-hook 'clojure-mode-hook 'subword-mode)
-
-(add-hook 'clojure-mode-hook #'yas-minor-mode)
-
-(defun mavbozo--clojure-mode-indentation-hook ()
-  ""
-  ;; indentation for om or fulcro's dom
-  (define-clojure-indent
-    (dom/div '1)
-    (dom/form '1)
-    (dom/p '1)
-    (dom/button '1)
-    (dom/span '1)
-    (dom/section '1)
-    (dom/label '1)
-    (dom/h1 '1)
-    (dom/h2 '1)
-    (dom/h3 '1)
-    (dom/h4 '1)
-    (dom/ul '1)
-    (dom/li '1)
-    ;; otplike
-    (proc-defn :defn)
-    (proc-fn :defn)
-    (match :defn))
-
-  (define-clojure-indent
-    (defmutation '(2 :form :form (1)))
-    (defquery-root '(1 :form :form (1))))
-  )
-
-(add-hook 'clojure-mode-hook #'mavbozo--clojure-mode-indentation-hook)
-
-
-
-;; inferior clojure hook
-;; (add-hook 'clojure-mode-hook #'inf-clojure-minor-mode)
-
-;; rainbow delimiters for all programming mode
-(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-
-;; CIDER setup
-(load (xah-get-fullpath "sub-init/cider.el"))
-
-;; highlight matching paren
-(show-paren-mode 1)
-
-
-;; UNIQUIFY
-(require 'uniquify)
-
-(setq uniquify-buffer-name-style 'post-forward
-      uniquify-separator ":")
-
-
-(require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.htm\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.blade\\.php\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.[gj]sp\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-
-
-(defun my-web-mode-hook ()
-  "Hooks for Web mode."
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-css-indent-offset 2)
-  (setq web-mode-code-indent-offset 2))
-
-(add-hook 'web-mode-hook 'my-web-mode-hook)
-
-;; emmet-mode hook to other mode
-(add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
-(add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
-
-;; line number
-;; (global-linum-mode t)
-
-;; markdown customization
-
-;; (require 'mmm-mode)
-;;; mmm-mode disabled and uninstalled because it made my emacs hang
-
-;; (setq mmm-global-mode 'maybe)
-
-;; clojure in markdown
-;; (mmm-add-classes
-;;  '((markdown-clojure
-;;    :submode clojure-mode
-;;    :front "^```clojure[\n\r]+"
-;;    :back "^```$")))
-
-;; (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-clojure)
-
-;; (setq mmm-parse-when-idle 't)
-
-;; org-mode customization
-(setq org-src-fontify-natively t)
-
-
-;; keyboard quit setting
-;;; esc always quits
-;;(define-key minibuffer-local-map [f6] 'minibuffer-keyboard-quit)
-;;(define-key minibuffer-local-ns-map [f6] 'minibuffer-keyboard-quit)
-;;(define-key minibuffer-local-completion-map [f6] 'minibuffer-keyboard-quit)
-;;(define-key minibuffer-local-must-match-map [f6] 'minibuffer-keyboard-quit)
-;;(define-key minibuffer-local-isearch-map [f6] 'minibuffer-keyboard-quit)
-;; (global-set-key [f6] 'keyboard-escape-quit)
-
-(define-key key-translation-map (kbd "ESC") (kbd "C-g"))
-
-
-;; tramp setting
-(setq tramp-default-method "ssh")
-(put 'narrow-to-region 'disabled nil)
-
-
-;; make buffer switch command auto suggestions, also for find-file command
-(ido-mode 1)
-
-(require 'ido)
-
-;; make ido display choices vertically
-(setq ido-separator "\n")
-
-;; display any item that contains the chars you typed
-(setq ido-enable-flex-matching t)
-
-(setq max-mini-window-height 0.5)
-
-;; stop ido suggestion when doing a save-as
-(define-key (cdr ido-minor-mode-map-entry) [remap write-file] nil)
-
-;; set frame-title to file path
-(setq frame-title-format
-      '((:eval (if (buffer-file-name)
-                   (abbreviate-file-name (buffer-file-name))
-                 "%b"))))
-
-;; disable all custom themes
-;; (mapcar #'disable-theme custom-enabled-themes)
-
-(which-key-mode 1)
-
-;; PROJECTILE
-;; (require 'projectile)
-;; (projectile-mode +1)
-;; (require 'helm-projectile)
-;; (helm-projectile-on)
-
-
-;; UNDO REDO
-
-(defun mavbozo-use-y-caps-as-redo ()
-  (interactive)
-  (xah-fly--define-keys
-   xah-fly-key-map
-   '(("Y" . redo))))
-
-
-(defun mavbozo-use-y-regular-in-insert-mode ()
-  (interactive)
-  (xah-fly--define-keys
-   xah-fly-key-map
-   '(("Y" . nil))))
-
-;; automatic save buffer when switching to command mode
-(add-hook 'xah-fly-command-mode-activate-hook 'mavbozo-use-y-caps-as-redo)
-
-(add-hook 'xah-fly-insert-mode-activate-hook 'mavbozo-use-y-regular-in-insert-mode)
-
-
-(defun mavbozo-tramp-quit ()
-  (interactive)
-  (tramp-cleanup-all-buffers)
-  (tramp-cleanup-all-connections)
-  (message "Tramp connections and buffers cleaned up"))
-
-
-(defun mavbozo-disable-all-themes ()
+;; THEME
+(use-package doom-themes
+  :ensure t
+  :config
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  (load-theme 'doom-tomorrow-night t)
+
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+  ;; Enable custom neotree theme (all-the-icons must be installed!)
+  ;; (doom-themes-neotree-config)
+  ;; or for treemacs users
+  ;; (setq doom-themes-treemacs-theme "doom-atom") ; use "doom-colors" for less minimal icon theme
+  ;; (doom-themes-treemacs-config)
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
+
+
+;; WHICH KEY
+(use-package which-key
+  :defer 0
+  :diminish which-key-mode
+  :config
+  (which-key-mode)
+  (setq which-key-idle-delay 1))
+
+
+;; RAINBOW DELIMITERS
+;; (use-package rainbow-delimiters)
+
+;; NO LITTERING
+(use-package no-littering)
+
+;; no-littering doesn't set this by default so we must place
+;; auto save files in the same path as it uses for sessions
+(setq auto-save-file-name-transforms
+      `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
+
+
+
+;; change those annoying bell function to Subtly flash the modeline
+;; https://www.emacswiki.org/emacs/AlarmBell
+;; (setq ring-bell-function
+;;       (lambda ()
+;;         (let ((orig-fg (face-foreground 'mode-line)))
+;;           (set-face-foreground 'mode-line "#F2804F")
+;;           (run-with-idle-timer 0.1 nil
+;;                                (lambda (fg) (set-face-foreground 'mode-line fg))
+;;                                orig-fg))))
+
+(defun mavbozo/disable-all-themes ()
   (interactive)
   (mapcar #'disable-theme custom-enabled-themes)
   (message "all custom theme disabled"))
 
 
-(add-to-list 'load-path "~/.emacs.d/command-frequency/")
-(require 'command-frequency)
-(command-frequency-mode 1)
+;; COMPANY MODE
+;; (use-package company)
+;; (add-hook 'after-init-hook 'global-company-mode)
+
+;; TERN MODE
+
+;; (add-to-list 'load-path "~/.emacs.d/ext-packages/tern/emacs")
+;; (autoload 'tern-mode "tern.el" nil t)
+
+;; KEYFREQ
+(use-package keyfreq
+  :config
+  (keyfreq-mode 1)
+  (keyfreq-autosave-mode 1)
+  (setq keyfreq-excluded-commands
+	'(self-insert-command
+          forward-char
+          backward-char
+          previous-line
+          next-line)))
+
+;; PYTHON MODE
+;; The package is "python" but the mode is "python-mode":
+(use-package python
+  :mode ("\\.py\\'" . python-mode)
+  :interpreter ("python" . python-mode))
+
+(use-package pyvenv
+  :after python-mode
+  :config
+  (pyvenv-mode 1))
+
+(use-package python-black
+  :demand t
+  :after python
+  :hook (python-mode . python-black-on-save-mode-enable-dwim))
+
+;; FLYCHECK
+(use-package flycheck
+  :hook (python-mode . flycheck-mode))
 
 
-(require 'sublimity)
-
-(require 'sublimity-attractive)
-(sublimity-attractive-hide-bars)
-(sublimity-attractive-hide-fringes)
-(sublimity-attractive-hide-vertical-border)
-
-;;
+;; MAGIT
+(use-package magit
+  :commands magit-status)
 
 
-;; (load (expand-file-name "~/quicklisp/slime-helper.el"))
-  ;; Replace "sbcl" with the path to your implementation
-;; (setq inferior-lisp-program "sbcl")
+(load (xah-get-fullpath "sub-init/mavbozo-abbr"))
 
-;;(when (fboundp 'slime-mode)
 
-  ;;(defun my-slime-mode-config ()
-    "For use in `slime-mode-hook'."
-    ;;(local-unset-key (kbd "SPC"))
-    ;; more stuff here
-    ;;)
-
-  ;;(add-hook 'slime-mode-hook 'my-slime-mode-config)
-
-  ;;)
-
-;;(progn
-  ;; remove space from slime-autodoc-mode-map
-  ;;(define-key slime-autodoc-mode-map (kbd "SPC") nil )
-
-  ;;(define-key slime-mode-indirect-map (kbd "SPC") nil )
-
-  ;;(define-key slime-repl-mode-map (kbd "SPC") nil )
-  ;;(define-key slime-repl-mode-map (kbd ",") nil )
-
-  ;;(define-key slime-editing-map (kbd "SPC") nil )
-
-  
-  
-  ;;)
-
-;; mavbozo major mode custom 
-(load (xah-get-fullpath "sub-init/major.el"))
-
-;; change those annoying bell function to Subtly flash the modeline
-;; https://www.emacswiki.org/emacs/AlarmBell
-(setq ring-bell-function
-      (lambda ()
-        (let ((orig-fg (face-foreground 'mode-line)))
-          (set-face-foreground 'mode-line "#F2804F")
-          (run-with-idle-timer 0.1 nil
-                               (lambda (fg) (set-face-foreground 'mode-line fg))
-                               orig-fg))))
+;; Make gc pauses faster by decreasing the threshold.
+(setq gc-cons-threshold (* 2 1000 1000))

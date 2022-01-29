@@ -1,3 +1,9 @@
-[submodule "submodules/xah-fly-keys"]
-	path = submodules/xah-fly-keys
+[submodule ".emacs.d/ext-packages/tern"]
+	path = .emacs.d/ext-packages/tern
+	url = git@github.com:ternjs/tern.git
+[submodule ".emacs.d/ext-packages/use-package"]
+	path = .emacs.d/ext-packages/use-package
+	url = git@github.com:jwiegley/use-package.git
+[submodule ".emacs.d/ext-packages/xah-fly-keys"]
+	path = .emacs.d/ext-packages/xah-fly-keys
 	url = git@github.com:xahlee/xah-fly-keys.git
