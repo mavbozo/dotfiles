@@ -1,4 +1,4 @@
-;; You will most likely need to adjust this font size for your system!
+;; You most likely need to adjust this font size for your system!
 (defvar mavbozo/default-font-size 200)
 (defvar mavbozo/default-variable-font-size 200)
 
@@ -87,10 +87,6 @@ To solve this problem, when your code only knows the relative path of another fi
 
 (setq org-agenda-files (list (getenv "MY_TODO_FILE")))
 
-;; ORG MODE??
-;; (define-key global-map "\C-cl" 'org-store-link)
-;; (define-key global-map "\C-ca" 'org-agenda)
-(setq org-log-done t)
 
 ;; FONT
 ;; set a default font
@@ -131,7 +127,7 @@ To solve this problem, when your code only knows the relative path of another fi
   (setq use-package-always-ensure t))
 
 ;; SETUP XAH-FLY-KEYS
-(add-to-list 'load-path ".emacs.d/ext-packages/xah-fly-keys")
+(add-to-list 'load-path "~/.emacs.d/ext-packages/xah-fly-keys")
 (require 'xah-fly-keys)
 (xah-fly-keys-set-layout "qwerty")
 (xah-fly-keys 1)
@@ -161,6 +157,14 @@ To solve this problem, when your code only knows the relative path of another fi
   (doom-themes-org-config))
 
 
+(defun mavbozo/load-light-theme ()
+  (interactive)
+  (load-theme 'doom-one-light t))
+
+(defun mavbozo/load-dark-theme ()
+  (interactive)
+  (load-theme 'doom-tomorrow-night t))
+
 ;; WHICH KEY
 (use-package which-key
   :defer 0
@@ -171,7 +175,8 @@ To solve this problem, when your code only knows the relative path of another fi
 
 
 ;; RAINBOW DELIMITERS
-;; (use-package rainbow-delimiters)
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
 
 ;; NO LITTERING
 (use-package no-littering)
@@ -180,7 +185,6 @@ To solve this problem, when your code only knows the relative path of another fi
 ;; auto save files in the same path as it uses for sessions
 (setq auto-save-file-name-transforms
       `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
-
 
 
 ;; change those annoying bell function to Subtly flash the modeline
@@ -234,7 +238,7 @@ To solve this problem, when your code only knows the relative path of another fi
 (use-package python-black
   :demand t
   :after python
-  :hook (python-mode . python-black-on-save-mode-enable-dwim))
+  :hook (python-mode . python-black-on-save-mode))
 
 ;; FLYCHECK
 (use-package flycheck
@@ -243,10 +247,84 @@ To solve this problem, when your code only knows the relative path of another fi
 
 ;; MAGIT
 (use-package magit
-  :commands magit-status)
+  :commands magit-status
+  :config
+  (setq magit-completing-read-function 'ivy-completing-read))
 
 
 (load (xah-get-fullpath "sub-init/mavbozo-abbr"))
+
+;; ORG MODE
+(use-package org
+  :pin org
+  :hook (org-mode . mavbozo/org-mode-setup)
+  :config
+  (setq org-log-done t)
+  (setq org-src-fontify-natively t))
+
+;; ORG MODE??
+;; (define-key global-map "\C-cl" 'org-store-link)
+;; (define-key global-map "\C-ca" 'org-agenda)
+(defun mavbozo/org-mode-setup ()
+  (visual-line-mode 1))
+
+
+;; ;; IDO SETUP
+;; (progn
+;;   ;; make buffer switch command do suggestions, also for find-file command
+;;   (require 'ido)
+;;   (ido-mode 1)
+
+;;   ;; show choices vertically
+;;   (if (version< emacs-version "25")
+;;       (setq ido-separator "\n")
+;;     (setf (nth 2 ido-decorations) "\n"))
+
+;;   ;; show any name that has the chars you typed
+;;   (setq ido-enable-flex-matching t)
+
+;;   ;; use current pane for newly opened file
+;;   (setq ido-default-file-method 'selected-window)
+
+;;   ;; use current pane for newly switched buffer
+;;   (setq ido-default-buffer-method 'selected-window)
+
+;;   ;; stop ido from suggesting when naming new file
+;;   (define-key (cdr ido-minor-mode-map-entry) [remap write-file] nil))
+
+
+;; ICOMPLETE
+;; (progn
+;;   ;; minibuffer enhanced completion
+;;   (require 'icomplete)
+;;   (icomplete-mode 1)
+;;   ;; show choices vertically
+;;   (setq icomplete-separator "\n")
+;;   (setq icomplete-hide-common-prefix nil)
+;;   (setq icomplete-in-buffer t)
+
+;;   (define-key icomplete-minibuffer-map (kbd "<right>") 'icomplete-forward-completions)
+;;   (define-key icomplete-minibuffer-map (kbd "<left>") 'icomplete-backward-completions))
+(use-package ivy
+  :config
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-count-format "(%d/%d) "))
+
+;; set frame-title to file path
+(setq frame-title-format
+      '((:eval (if (buffer-file-name)
+                   (abbreviate-file-name (buffer-file-name))
+                 "%b"))))
+
+;; CLOJURE
+(use-package clojure-mode
+  :mode ("\\.clj\\'" . clojure-mode))
+
+(use-package inf-clojure
+  :commands (inf-clojure)
+  :hook (clojure-mode-hook . inf-clojure-mode))
+
 
 
 ;; Make gc pauses faster by decreasing the threshold.
