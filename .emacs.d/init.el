@@ -15,7 +15,7 @@
            (format "%.2f seconds"
                    (float-time
                    (time-subtract after-init-time before-init-time)))
-           gcs-done))
+           gcs-done)) 
 
 (add-hook 'emacs-startup-hook #'mavbozo/display-startup-time)
 
@@ -224,22 +224,6 @@ To solve this problem, when your code only knows the relative path of another fi
           previous-line
           next-line)))
 
-;; PYTHON MODE
-;; The package is "python" but the mode is "python-mode":
-(use-package python
-  :mode ("\\.py\\'" . python-mode)
-  :interpreter ("python" . python-mode))
-
-(use-package pyvenv
-  :after python-mode
-  :config
-  (pyvenv-mode 1))
-
-(use-package python-black
-  :demand t
-  :after python
-  :hook (python-mode . python-black-on-save-mode))
-
 ;; FLYCHECK
 (use-package flycheck
   :hook (python-mode . flycheck-mode))
@@ -254,6 +238,12 @@ To solve this problem, when your code only knows the relative path of another fi
 
 (load (xah-get-fullpath "sub-init/mavbozo-abbr"))
 
+;; ORG MODE??
+;; (define-key global-map "\C-cl" 'org-store-link)
+;; (define-key global-map "\C-ca" 'org-agenda)
+(defun mavbozo/org-mode-setup ()
+  (visual-line-mode 1))
+
 ;; ORG MODE
 (use-package org
   :pin org
@@ -262,49 +252,6 @@ To solve this problem, when your code only knows the relative path of another fi
   (setq org-log-done t)
   (setq org-src-fontify-natively t))
 
-;; ORG MODE??
-;; (define-key global-map "\C-cl" 'org-store-link)
-;; (define-key global-map "\C-ca" 'org-agenda)
-(defun mavbozo/org-mode-setup ()
-  (visual-line-mode 1))
-
-
-;; ;; IDO SETUP
-;; (progn
-;;   ;; make buffer switch command do suggestions, also for find-file command
-;;   (require 'ido)
-;;   (ido-mode 1)
-
-;;   ;; show choices vertically
-;;   (if (version< emacs-version "25")
-;;       (setq ido-separator "\n")
-;;     (setf (nth 2 ido-decorations) "\n"))
-
-;;   ;; show any name that has the chars you typed
-;;   (setq ido-enable-flex-matching t)
-
-;;   ;; use current pane for newly opened file
-;;   (setq ido-default-file-method 'selected-window)
-
-;;   ;; use current pane for newly switched buffer
-;;   (setq ido-default-buffer-method 'selected-window)
-
-;;   ;; stop ido from suggesting when naming new file
-;;   (define-key (cdr ido-minor-mode-map-entry) [remap write-file] nil))
-
-
-;; ICOMPLETE
-;; (progn
-;;   ;; minibuffer enhanced completion
-;;   (require 'icomplete)
-;;   (icomplete-mode 1)
-;;   ;; show choices vertically
-;;   (setq icomplete-separator "\n")
-;;   (setq icomplete-hide-common-prefix nil)
-;;   (setq icomplete-in-buffer t)
-
-;;   (define-key icomplete-minibuffer-map (kbd "<right>") 'icomplete-forward-completions)
-;;   (define-key icomplete-minibuffer-map (kbd "<left>") 'icomplete-backward-completions))
 (use-package ivy
   :config
   (ivy-mode 1)
@@ -317,15 +264,14 @@ To solve this problem, when your code only knows the relative path of another fi
                    (abbreviate-file-name (buffer-file-name))
                  "%b"))))
 
-;; CLOJURE
-(use-package clojure-mode
-  :mode ("\\.clj\\'" . clojure-mode))
+;; --------------------------------------------------
+;; load files
 
-(use-package inf-clojure
-  :commands (inf-clojure)
-  :hook (clojure-mode-hook . inf-clojure-mode))
-
+(load (xah-get-fullpath "sub-init/mavbozo_clojure"))
+(load (xah-get-fullpath "sub-init/mavbozo_python"))
 
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
+
+
