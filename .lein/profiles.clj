@@ -2,34 +2,44 @@
  :yolo {}
  :marginalia {:plugins [[michaelblume/marginalia "0.9.0"]]}
  :user {:signing {:gpg-key "29B848141065B98D"}
-        ;;:plugins [[cider/cider-nrepl "0.9.0"]]
+        ;; :plugins [[cider/cider-nrepl "0.22.4"]]
         }
  :woot {:plugins [[lein-ancient "0.6.7"]]}
- :cider-repl {:dependencies [[org.clojure/tools.nrepl "0.2.12"]]
-              :plugins [[cider/cider-nrepl "0.14.0"]]}
- :repl {:dependencies [[org.clojure/tools.nrepl "0.2.12"]]
-        :plugins [[cider/cider-nrepl "0.15.1"]]}
+ ;; :cider-repl {:dependencies [[org.clojure/tools.nrepl "0.2.12"]]
+ ;;              :plugins [[cider/cider-nrepl "0.14.0"]]}
+ :repl {:dependencies [
+                       ;; [org.clojure/tools.nrepl "0.2.12"]
+                       ]
+        ;; :plugins [[cider/cider-nrepl "0.28.5"]
+        ;;           [mx.cider/enrich-classpath "1.9.0"]]
+        }
  :mavbozo {
            ;;:repl-options {:prompt (fn [ns] (str "[" *ns* "]" \newline "=> "))}
            :repl-options { ; for nREPL dev you really need to limit output
                           :init (set! *print-length* 50)
-                          :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]
+                          :nrepl-middleware [
+                                             ;; cemerick.piggieback/wrap-cljs-repl
+                                             ]
 
                           }
            :dependencies [ ;;[spyscope "0.1.6-SNAPSHOT"]
-                          [com.cemerick/piggieback "0.2.2"]
-                          [figwheel-sidecar "0.5.13"]
-                          [org.clojure/tools.namespace "0.2.10"]
-                          [fipp "0.6.6"]
-                          ;;[clojure-complete "0.2.3"]
-                          [leiningen #=(leiningen.core.main/leiningen-version)]
-                          ;;[io.aviso/pretty "0.1.8"]
-                          ;;[im.chit/vinyasa "0.4.7"]
+                          ;; [com.cemerick/piggieback "0.2.2"]
+                          ;; [figwheel-sidecar "0.5.13"]
+                          ;; [org.clojure/tools.namespace "0.2.10"]
+                          ;; [fipp "0.6.6"]
+                          ;; [clojure-complete "0.2.3"]
+                          ;; [leiningen #=(leiningen.core.main/leiningen-version)]
+                          ;; [io.aviso/pretty "0.1.8"]
+                          ;; [im.chit/vinyasa "0.4.7"]
                           ]
-           :plugins [[cider/cider-nrepl "0.15.1"]
-                     [jonase/eastwood "0.2.3"]
-                     [lein-ns-dep-graph "0.1.0-SNAPSHOT"]]
-           :injections [(require '[fipp.edn :refer (pprint) :rename {pprint fipp}])]
+           :plugins [
+                     ;;[cider/cider-nrepl "0.15.1"]
+                     ;; [jonase/eastwood "0.2.3"]
+                     ;; [lein-ns-dep-graph "0.1.0-SNAPSHOT"]
+                     ]
+           :injections [
+                        ;; (require '[fipp.edn :refer (pprint) :rename {pprint fipp}])
+                        ]
                
            }
  

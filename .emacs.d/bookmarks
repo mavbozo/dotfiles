@@ -1,4 +1,4 @@
-;;;; Emacs Bookmark Format Version 1 ;;;;
+;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: utf-8-emacs -*- 
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
@@ -23,7 +23,7 @@
  (rear-context-string)
  (position . 1))
 ("todo"
- (filename . "~/SpiderOak/Archive/T/todo.txt")
+ (filename . "/mnt/c/Users/maver/SpiderOak/Archive/T/todo.txt")
  (front-context-string . "* TODOLIST\n** TO")
  (rear-context-string . "mode: org -*-\n\n\n")
  (position . 21))
