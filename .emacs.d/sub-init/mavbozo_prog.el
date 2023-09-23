@@ -79,3 +79,11 @@
   ;; (define-key web-mode-map [remap xah-goto-matching-bracket] 'web-mode-element-end)
   ;; (define-key web-mode-map [remap xah-goto-matching-bracket] 'web-mode-element-beginning )
   )
+
+
+(add-to-list 'load-path (xah-get-fullpath "../ext-packages/ws-butler"))
+
+(require 'ws-butler)
+
+
+(use-package yasnippet)

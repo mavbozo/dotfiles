@@ -48,14 +48,15 @@
 ;; LSP
 (use-package js2-mode
   :defer t
-  :mode ("\\.js\\'" . js-mode)
+  :mode
+  (("\\.js\\'" . js-mode)
+   ("\\.jsx?\\'" . js-mode))
   :hook
   (
    (js-mode . js2-minor-mode)
    (js-mode . lsp-deferred)
    )
   :config
-  ;; use xref
   (define-key js-mode-map (kbd "M-.") nil)
   )
 ;; END LSP

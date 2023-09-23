@@ -1,4 +1,14 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
+
+(defun xah-abbrev-ahf ()
+  "Abbrev hook function, used for `define-abbrev'.
+ Our use is to prevent inserting the char that triggered expansion. Experimental.
+ the “ahf” stand for abbrev hook function.
+Version 2016-10-24"
+  t)
+
+(put 'xah-abbrev-ahf 'no-self-insert t)
+
 ;; sample use of abbrev
 
 (clear-abbrev-table global-abbrev-table)
@@ -11,13 +21,14 @@
 
 (define-abbrev-table 'clojure-mode-abbrev-table
   '(
-    ("require" "(:require [])")
+    ("require" "(:require [])" xah-abbrev-ahf)
     ("import" "(:import ())")
     ("prl" "(println \"\")")
     ("defn" "(defn foo
   \"\"
   []
-  )")
+  )" xah-abbrev-ahf)
+    ("def" "(def foo")
     ("defrecord" "(defrecord Foo [])")
 
     ("interceptor" "(interceptor
@@ -33,7 +44,7 @@
 
 
 ;; comment end
-)")
+)" xah-abbrev-ahf)
     )
   
   )

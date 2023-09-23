@@ -45,11 +45,27 @@
   (add-hook 'clojure-mode-hook 'mavbozo/clojure-mode-hook-fn)
   (add-hook 'clojure-mode-hook #'cider-mode)
   (add-hook 'clojure-mode-hook #'flycheck-mode)
+  ;; 
+  ;; https://emacs.stackexchange.com/a/47092
+  ;; (add-hook 'my-minor-mode-name-hook
+  ;;         (lambda ()
+  ;;           (if my-minor-mode-name
+  ;;               (add-hook 'after-save-hook #'a-func-from-my-minor-mode nil 'local)
+  ;;             (remove-hook 'after-save-hook #'a-func-from-my-minor-mode 'local))))
+  ;; 
+  ;; (add-hook 'clojure-mode-hook #'ws-butler-mode)
   (require 'flycheck-clj-kondo))
 
+(use-package clojure-snippets
+  :defer t
+  :config
+  (add-hook 'clojure-mode-hook #'yas-minor-mode))
+
+(defun mavbozo/insert-colon () (interactive) (insert ":"))
 
 (defun mavbozo/cider-mode-hook-fn ()
   (interactive)
+  
   (progn
     ;; create a keymap
     (define-prefix-command 'mavbozo/cider-leader-map)
@@ -76,10 +92,30 @@
     
     (define-key mavbozo/cider-leader-map (kbd "u") 'mavbozo/cider-dev>reset)
     (define-key mavbozo/cider-leader-map (kbd "U") 'mavbozo/cider-dev>c.t.n.repl/refresh)
-    
+    (define-key mavbozo/cider-leader-map (kbd "d c") 'mavbozo/insert-colon)
+
+    (define-key mavbozo/cider-leader-map (kbd "p p") 'cider-pprint-eval-last-sexp)
     )
   ;; modify the major mode's key map, so that a key becomes your leader key
-  (define-key cider-mode-map (kbd "M-j") mavbozo/cider-leader-map))
+  (define-key cider-mode-map (kbd "M-j") mavbozo/cider-leader-map)
+  ;; https://emacs.stackexchange.com/a/47092
+  ;; (add-hook 'my-minor-mode-name-hook
+  ;;         (lambda ()
+  ;;           (if my-minor-mode-name
+  ;;               (add-hook 'after-save-hook #'a-func-from-my-minor-mode nil 'local)
+  ;;             (remove-hook 'after-save-hook #'a-func-from-my-minor-mode 'local))))
+  ;; 
+  ;; (add-hook 'clojure-mode-hook #'ws-butler-mode)
+  ;; format buffer before save
+  ;; (add-hook 'my-minor-mode-name-hook
+  ;;         (lambda ()
+  ;;           (if my-minor-mode-name
+  ;;               (add-hook 'after-save-hook #'a-func-from-my-minor-mode nil 'local)
+  ;;             (remove-hook 'after-save-hook #'a-func-from-my-minor-mode 'local))))
+  ;; (add-hook 'before-save-hook 'cider-format-buffer t t)
+  (if cider-mode
+      (add-hook 'before-save-hook 'cider-format-buffer t t)
+    (remove-hook 'before-save-hook 'cider-format-buffer)))
 
 (defun mavbozo/cider-repl-mode-hook-fn ()
   (interactive)
@@ -107,6 +143,7 @@
   (add-hook 'cider-mode-hook 'mavbozo/cider-mode-hook-fn)
   (add-hook 'cider-repl-mode-hook 'mavbozo/cider-repl-mode-hook-fn)
   )
+
 
 ;; modify the major mode's key map, so that a key becomes your leader key
 ;; (define-prefix-command 'mavbozo-inf-clojure-leader-map)

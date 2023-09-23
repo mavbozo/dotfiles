@@ -83,9 +83,6 @@ To solve this problem, when your code only knows the relative path of another fi
 
 (setq initial-buffer-choice (getenv "MY_TODO_FILE"))
 
-(setq org-agenda-files (list (getenv "MY_TODO_FILE")))
-
-
 ;; FONT
 ;; set a default font
 ;; (set-face-attribute 'default nil :font "Fira Code Retina" :height mavbozo/default-font-size)
@@ -131,43 +128,6 @@ To solve this problem, when your code only knows the relative path of another fi
 (xah-fly-keys 1)
 
 
-;; remove auto save when moving to command-mode
-(remove-hook 'xah-fly-command-mode-activate-hook 'xah-fly-save-buffer-if-file)
-
-(global-set-key (kbd "<end>") 'xah-fly-command-mode-activate)
-
-(defun mavbozo/xah-fly-keys-mode ()
-  (interactive)
-  (xah-fly-keys 1))
-
-(global-set-key (kbd "<f9>") 'mavbozo/xah-fly-keys-mode)
-
-
-
-;; mavbozo & xah-fly-keys
-(define-prefix-command 'mavbozo/personal-keymap)
-
-;; make xah-fly-keys 【leader M-j】 as prefix for 'mavbozo/personal-keymap
-(define-key xah-fly-leader-key-map (kbd "M-f") 'mavbozo/personal-keymap)
-
-(define-prefix-command 'mavbozo/prog-keymap)
-
-;; prerequisite: set xah-fly keyboard to qwerty first.
-(define-key xah-fly-leader-key-map (kbd "j") 'mavbozo/prog-keymap)
-
-;; change xah-fly-keys 【leader j】 as prefix for my-keymap
-;; prerequisite: set xah-fly keyboard to qwerty first.
-(define-key xah-fly-leader-key-map (kbd "z") 'xah-fly-h-keymap)
-
-(define-key xah-fly-leader-key-map (kbd "M-j") 'mavbozo/prog-keymap)
-
-;; Make 《F8》 Key Do Cancel (C-g)
-(define-key key-translation-map (kbd "<f8>") (kbd "C-g"))
-;; Make M-f / ALT-f Key Do Cancel (C-g)
-(define-key key-translation-map (kbd "M-h") (kbd "C-g"))
-; Make M-p / ALT-p Key Quoted Insert (C-q)
-(define-key key-translation-map (kbd "M-k") (kbd "C-q"))
-
 ;; THEME
 (use-package doom-themes
   :ensure t
@@ -187,14 +147,6 @@ To solve this problem, when your code only knows the relative path of another fi
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
-
-(defun mavbozo/load-light-theme ()
-  (interactive)
-  (load-theme 'doom-one-light t))
-
-(defun mavbozo/load-dark-theme ()
-  (interactive)
-  (load-theme 'doom-tomorrow-night t))
 
 ;; WHICH KEY
 (use-package which-key
@@ -227,12 +179,6 @@ To solve this problem, when your code only knows the relative path of another fi
 ;;           (run-with-idle-timer 0.1 nil
 ;;                                (lambda (fg) (set-face-foreground 'mode-line fg))
 ;;                                orig-fg))))
-
-(defun mavbozo/disable-all-themes ()
-  (interactive)
-  (mapcar #'disable-theme custom-enabled-themes)
-  (message "all custom theme disabled"))
-
 
 
 ;; KEYFREQ
@@ -276,7 +222,7 @@ To solve this problem, when your code only knows the relative path of another fi
   (setq magit-completing-read-function 'ivy-completing-read))
 
 ;; ABBREVIATION
-(load (xah-get-fullpath "sub-init/mavbozo-abbr"))
+;; (load (xah-get-fullpath "sub-init/mavbozo-abbr"))
 
 (use-package ivy
   :config
@@ -290,6 +236,7 @@ To solve this problem, when your code only knows the relative path of another fi
                    (abbreviate-file-name (buffer-file-name))
                  "%b"))))
 
+(load (xah-get-fullpath "sub-init/mavbozo_personal"))
 (load (xah-get-fullpath "sub-init/mavbozo_prog"))
 (load (xah-get-fullpath "sub-init/mavbozo_clojure"))
 (load (xah-get-fullpath "sub-init/mavbozo_python"))
@@ -297,30 +244,10 @@ To solve this problem, when your code only knows the relative path of another fi
 (load (xah-get-fullpath "sub-init/mavbozo_javascript"))
 
 
-;; MAYBE
-;; LSP UI
-;; (use-package lsp-ui
-;;   :hook (lsp-mode . lsp-ui-mode)
-;;   :custom
-;;   (lsp-ui-doc-position 'bottom))
+;; ORG MODE
 
-;; http://camdez.com/blog/2013/11/14/emacs-show-buffer-file-name/
-(defun mavbozo/show-and-copy-buffer-filename ()
-  "Show the full path to the current file in the minibuffer and copy to clipboard."
-  (interactive)
-  (let ((file-name (buffer-file-name)))
-    (if file-name
-        (progn
-          (message file-name)
-          (kill-new file-name))
-      (error "Buffer not visiting a file"))))
-
-
-
-;; ORG MODE??
 ;; (define-key global-map "\C-cl" 'org-store-link)
 ;; (define-key global-map "\C-ca" 'org-agenda)
-
 (defun mavbozo/org-mode-setup ()
   (visual-line-mode 1))
 
@@ -328,9 +255,10 @@ To solve this problem, when your code only knows the relative path of another fi
 (defvar mavbozo-org-mode-keymap (make-keymap) "mavbozo-org-mode keymap.")
 (define-key mavbozo-org-mode-keymap (kbd "M-j c l") 'org-insert-link)
 (define-key mavbozo-org-mode-keymap (kbd "M-j c o") 'org-open-at-point)
+(define-key mavbozo-org-mode-keymap (kbd "M-j c c") 'org-capture)
 (define-key mavbozo-org-mode-keymap (kbd "M-j c ,") 'org-insert-structure-template)
 (define-key mavbozo-org-mode-keymap (kbd "M-j c -") 'org-ctrl-c-minus)
-
+(define-key mavbozo-org-mode-keymap (kbd "M-j c c") 'org-ctrl-c-ctrl-c) ;; set tag in heading
 
 
 (define-minor-mode mavbozo-org-mode
@@ -338,9 +266,7 @@ To solve this problem, when your code only knows the relative path of another fi
   :lighter "mavbozo-org-mode"
   :keymap mavbozo-org-mode-keymap)
 
-;;  (mavbozo/org-mode-setup)
 
-;; ORG MODE
 (use-package org
   :pin org
   :hook (org-mode . mavbozo/org-mode-setup)
@@ -349,28 +275,38 @@ To solve this problem, when your code only knows the relative path of another fi
   (setq org-log-done t)
   (setq org-src-fontify-natively t))
 
-(setq org-todo-keywords
-      '((sequence "TODO" "WAITING" "DELEGATED" "|" "DONE")))
 
+(setq org-default-notes-file "/mnt/c/Users/maver/SpiderOak/Archive/A/org/capture.org")
+
+
+
+;; "* TODO %?\n  %i\n  %a"
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "/mnt/c/Users/maver/SpiderOak/Archive/A/org/gtd.org" "Tasks")
+         "* TODO %^{Brief Description} %^g\n%?\nAdded: %U\n")
+        ("j" "Journal" entry (file+datetree "/mnt/c/Users/maver/SpiderOak/Archive/A/org/journal.org")
+         "* %?\nEntered on %U\n  %i\n  %a")))
+
+(setq org-agenda-files (list "/mnt/c/Users/maver/SpiderOak/Archive/A/org/gtd.org"))
+
+
+(setq org-agenda-custom-commands
+      '(("H" "Home Lists"
+	 ((agenda)
+          (tags-todo "HOME")))
+	("O" "Office Lists"
+	 ((agenda)
+          (tags-todo "OFFICE")))
+	("D" "Daily Action List"
+	 ((agenda "" ((org-agenda-ndays 1)
+                      (org-agenda-sorting-strategy
+                       (quote ((agenda time-up priority-down tag-up) )))
+                      (org-deadline-warning-days 0)
+                      ))))))
 
 ;; COMPANY MODE
 (use-package company)
 (add-hook 'after-init-hook 'global-company-mode)
-
-
-;; mavbozo other keymap
-(define-prefix-command 'mavbozo/f5-keymap)
-
-(define-key mavbozo/f5-keymap (kbd "t l") 'mavbozo/load-light-theme)
-(define-key mavbozo/f5-keymap (kbd "t d") 'mavbozo/load-dark-theme)
-(define-key mavbozo/f5-keymap (kbd "t z") 'mavbozo/disable-all-themes)
-(define-key mavbozo/f5-keymap (kbd "x r <SPC>") 'point-to-register)
-(define-key mavbozo/f5-keymap (kbd "x r j") 'jump-to-register)
-(define-key mavbozo/f5-keymap (kbd "m s") 'magit-status)
-
-;; make xah-fly-keys 【leader F5】 as prefix for mavbozo/f5-keymap
-(define-key xah-fly-leader-key-map (kbd "<f5>") mavbozo/f5-keymap)
-
 
 ;; FOR WSL2 Environment, display gpg prompt 
 (setenv "DISPLAY"
@@ -382,3 +318,4 @@ To solve this problem, when your code only knows the relative path of another fi
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
 
+(put 'narrow-to-region 'disabled nil)
