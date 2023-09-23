@@ -30,7 +30,7 @@ export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}
 # enable passphrase prompt for gpg
 export GPG_TTY=$(tty)
 
-export MY_TODO_FILE=/mnt/c/Users/maver/SpiderOak/Archive/T/todo.txt
+export MY_TODO_FILE=/mnt/c/Users/maver/SpiderOak/Archive/A/org/gtd.org
 . "$HOME/.cargo/env"
 
 
@@ -42,3 +42,9 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 
 # Reset the cursor color.
 PS1="$PS1\[\e]12;#c0c0c0\a\]"
+
+if [ -e /home/mavbozo/.nix-profile/etc/profile.d/nix.sh ]; then . /home/mavbozo/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+export PATH=$PATH:/usr/local/go/bin
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
