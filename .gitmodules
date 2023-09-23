@@ -7,3 +7,6 @@
 [submodule ".emacs.d/ext-packages/xah-fly-keys"]
 	path = .emacs.d/ext-packages/xah-fly-keys
 	url = git@github.com:xahlee/xah-fly-keys.git
+[submodule ".emacs.d/ext-packages/copilot.el"]
+	path = .emacs.d/ext-packages/copilot.el
+	url = git@github.com:zerolfx/copilot.el.git

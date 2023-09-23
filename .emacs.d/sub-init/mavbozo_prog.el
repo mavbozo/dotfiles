@@ -5,10 +5,7 @@
 
 
 ;; FLYCHECK
-;; temporary til flycheck-32 released
-(setq mavbozo/flycheck-load-path (xah-get-fullpath "../ext-packages/flycheck"))
 (use-package flycheck
-  :load-path mavbozo/flycheck-load-path
   :hook
   (python-mode . flycheck-mode)
   (typescript-mode . flycheck-mode)
@@ -81,9 +78,11 @@
   )
 
 
-(add-to-list 'load-path (xah-get-fullpath "../ext-packages/ws-butler"))
+;; might need ws-butler package
 
-(require 'ws-butler)
+;; (add-to-list 'load-path (xah-get-fullpath "../ext-packages/ws-butler"))
+
+;; (require 'ws-butler)
 
 
 (use-package yasnippet)
