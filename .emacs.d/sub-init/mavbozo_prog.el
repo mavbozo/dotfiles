@@ -86,3 +86,9 @@
 
 
 (use-package yasnippet)
+
+;; yasnippet-snippets
+(add-to-list 'load-path (xah-get-fullpath "../ext-packages/yasnippet-snippets"))
+(setq yasnippet-snippets-dir (xah-get-fullpath "../ext-packages/yasnippet-snippets"))
+(use-package yasnippet-snippets
+  :load-path yasnippet-snippets-dir)

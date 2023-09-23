@@ -45,6 +45,7 @@
   (add-hook 'clojure-mode-hook 'mavbozo/clojure-mode-hook-fn)
   (add-hook 'clojure-mode-hook #'cider-mode)
   (add-hook 'clojure-mode-hook #'flycheck-mode)
+  (add-hook 'clojure-mode-hook #'yas-minor-mode)
   ;; 
   ;; https://emacs.stackexchange.com/a/47092
   ;; (add-hook 'my-minor-mode-name-hook
@@ -56,10 +57,6 @@
   ;; (add-hook 'clojure-mode-hook #'ws-butler-mode)
   (require 'flycheck-clj-kondo))
 
-(use-package clojure-snippets
-  :defer t
-  :config
-  (add-hook 'clojure-mode-hook #'yas-minor-mode))
 
 (defun mavbozo/insert-colon () (interactive) (insert ":"))
 

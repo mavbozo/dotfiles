@@ -10,3 +10,6 @@
 [submodule ".emacs.d/ext-packages/copilot.el"]
 	path = .emacs.d/ext-packages/copilot.el
 	url = git@github.com:zerolfx/copilot.el.git
+[submodule ".emacs.d/ext-packages/yasnippet-snippets"]
+	path = .emacs.d/ext-packages/yasnippet-snippets
+	url = git@github.com:mavbozo/yasnippet-snippets.git
