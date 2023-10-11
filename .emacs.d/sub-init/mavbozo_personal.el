@@ -56,6 +56,8 @@
           (kill-new file-name))
       (error "Buffer not visiting a file"))))
 
+;; bind revert buffer to 【leader /】SPC-i-e
+(define-key xah-fly-c-keymap (kbd "/") 'revert-buffer)
 
 ;; mavbozo personal-key map
 (define-key mavbozo/personal-keymap (kbd "n") nil)
