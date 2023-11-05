@@ -222,7 +222,7 @@ To solve this problem, when your code only knows the relative path of another fi
   (setq magit-completing-read-function 'ivy-completing-read))
 
 ;; ABBREVIATION
-;; (load (xah-get-fullpath "sub-init/mavbozo-abbr"))
+(load (xah-get-fullpath "sub-init/mavbozo-abbr"))
 
 (use-package ivy
   :config

@@ -21,30 +21,10 @@ Version 2016-10-24"
 
 (define-abbrev-table 'clojure-mode-abbrev-table
   '(
-    ("require" "(:require [])" xah-abbrev-ahf)
-    ("import" "(:import ())")
-    ("prl" "(println \"\")")
-    ("defn" "(defn foo
-  \"\"
-  []
-  )" xah-abbrev-ahf)
-    ("def" "(def foo")
-    ("defrecord" "(defrecord Foo [])")
-
-    ("interceptor" "(interceptor
- {:name :name
-  :enter
-  (fn [{:keys [request response] :as ctx}]
-    ctx)})")
-
     ("comment" "(comment
-;; comment start
+#_ comment-start
 
-
-
-
-;; comment end
-)" xah-abbrev-ahf)
+#_ comment-end)" xah-abbrev-ahf)
     )
   
   )

@@ -92,6 +92,10 @@
     (define-key mavbozo/cider-leader-map (kbd "d c") 'mavbozo/insert-colon)
 
     (define-key mavbozo/cider-leader-map (kbd "p p") 'cider-pprint-eval-last-sexp)
+
+    ;; test
+    (define-key mavbozo/cider-leader-map (kbd "t n") 'cider-test-run-ns-tests)
+    (define-key mavbozo/cider-leader-map (kbd "t t") 'cider-test-run-test)
     )
   ;; modify the major mode's key map, so that a key becomes your leader key
   (define-key cider-mode-map (kbd "M-j") mavbozo/cider-leader-map)
@@ -139,6 +143,8 @@
   (define-key cider-mode-map [remap eval-buffer] 'cider-eval-buffer)
   (add-hook 'cider-mode-hook 'mavbozo/cider-mode-hook-fn)
   (add-hook 'cider-repl-mode-hook 'mavbozo/cider-repl-mode-hook-fn)
+  (add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
+  (add-hook 'cider-mode-hook #'cider-company-enable-fuzzy-completion)
   )
 
 

@@ -80,9 +80,13 @@
 
 ;; might need ws-butler package
 
-;; (add-to-list 'load-path (xah-get-fullpath "../ext-packages/ws-butler"))
+(add-to-list 'load-path (xah-get-fullpath "../ext-packages/ws-butler"))
 
-;; (require 'ws-butler)
+(require 'ws-butler)
+
+;; activate ws-butler in yaml, python
+(add-hook 'yaml-mode-hook #'ws-butler-mode)
+(add-hook 'python-mode-hook #'ws-butler-mode)
 
 
 (use-package yasnippet)
@@ -92,3 +96,6 @@
 (setq yasnippet-snippets-dir (xah-get-fullpath "../ext-packages/yasnippet-snippets"))
 (use-package yasnippet-snippets
   :load-path yasnippet-snippets-dir)
+
+
+(use-package ag)
