@@ -16,12 +16,15 @@
 (define-prefix-command 'mavbozo/prog-keymap)
 
 ;; prerequisite: set xah-fly keyboard to qwerty first.
-;; make xah-fly-keys 【leader M-j】 as prefix for 'mavbozo/personal-keymap
-(define-key xah-fly-leader-key-map (kbd "j") 'mavbozo/personal-keymap)
+;; make xah-fly-keys 【leader SPACE j】 as prefix for 'mavbozo/personal-keymap
+;; put this AFTER loading Xah Fly Keys
+(define-key xah-fly-leader-key-map (kbd "SPC") 'nil)
+(define-key xah-fly-leader-key-map (kbd "SPC SPC") 'xah-fly-insert-mode-activate)
+(define-key xah-fly-leader-key-map (kbd "SPC j") 'mavbozo/personal-keymap)
 
 ;; change xah-fly-keys 【leader j】 as prefix for my-keymap
 ;; prerequisite: set xah-fly keyboard to qwerty first.
-(define-key xah-fly-leader-key-map (kbd "z") 'xah-fly-h-keymap)
+;; (define-key xah-fly-leader-key-map (kbd "z") 'xah-fly-h-keymap)
 
 (define-key xah-fly-leader-key-map (kbd "M-j") 'mavbozo/prog-keymap)
 
@@ -57,7 +60,7 @@
       (error "Buffer not visiting a file"))))
 
 ;; bind revert buffer to 【leader /】SPC-i-e
-(define-key xah-fly-c-keymap (kbd "/") 'revert-buffer)
+;; (define-key xah-fly-c-keymap (kbd "/") 'revert-buffer)
 
 ;; mavbozo personal-key map
 (define-key mavbozo/personal-keymap (kbd "n") nil)

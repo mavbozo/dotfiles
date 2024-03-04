@@ -242,6 +242,7 @@ To solve this problem, when your code only knows the relative path of another fi
 (load (xah-get-fullpath "sub-init/mavbozo_python"))
 (load (xah-get-fullpath "sub-init/mavbozo_typescript"))
 (load (xah-get-fullpath "sub-init/mavbozo_javascript"))
+(load (xah-get-fullpath "sub-init/mavbozo_ocaml"))
 
 
 ;; ORG MODE

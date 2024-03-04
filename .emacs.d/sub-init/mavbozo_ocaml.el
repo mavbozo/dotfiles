@@ -35,4 +35,6 @@
 (use-package utop
   :defer t
   :config
-  (add-hook 'tuareg-mode-hook #'utop-minor-mode))
+  (add-hook 'tuareg-mode-hook #'utop-minor-mode)
+  (define-key utop-minor-mode-map [remap eval-last-sexp] 'utop-eval-phrase)
+  (define-key utop-minor-mode-map [remap eval-buffer] 'utop-eval-buffer))
