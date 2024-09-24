@@ -101,9 +101,11 @@ To solve this problem, when your code only knows the relative path of another fi
 ;; INITIALIZE PACKAGE SOURCES
 (require 'package)
 
-(setq package-archives '(("melpa-stable" . "https://stable.melpa.org/packages/")
+(setq package-archives '(;; ("melpa" . "https://melpa.org/packages/")
+			 ("melpa-stable" . "https://stable.melpa.org/packages/")
                          ("org" . "https://orgmode.org/elpa/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
+
 (package-initialize)
 
 ;; INSTALL PACKAGE WHEN NOT INSTALLED
@@ -215,8 +217,21 @@ To solve this problem, when your code only knows the relative path of another fi
 	  magit-next-line)))
 
 
-;; MAGIT
+
+
+;;;; MAGIT
+
+;; 2024-09-02, I use magit version 3.0.0 and transient version 0.3.6
+;; because error: cl--generic-build-combined-method: Cyclic definition: %S: loadhist-unload-element when running git
+
+(use-package with-editor
+  :load-path "/home/mavbozo/yolo/with-editor")
+
+(use-package transient
+  :load-path "/home/mavbozo/yolo/transient/lisp")
+
 (use-package magit
+  :load-path "/home/mavbozo/yolo/magit/lisp"
   :commands magit-status
   :config
   (setq magit-completing-read-function 'ivy-completing-read))
@@ -236,6 +251,7 @@ To solve this problem, when your code only knows the relative path of another fi
                    (abbreviate-file-name (buffer-file-name))
                  "%b"))))
 
+;; load other configurations
 (load (xah-get-fullpath "sub-init/mavbozo_personal"))
 (load (xah-get-fullpath "sub-init/mavbozo_prog"))
 (load (xah-get-fullpath "sub-init/mavbozo_clojure"))
@@ -243,67 +259,10 @@ To solve this problem, when your code only knows the relative path of another fi
 (load (xah-get-fullpath "sub-init/mavbozo_typescript"))
 (load (xah-get-fullpath "sub-init/mavbozo_javascript"))
 (load (xah-get-fullpath "sub-init/mavbozo_ocaml"))
+(load (xah-get-fullpath "sub-init/mavbozo_common_lisp"))
+(load (xah-get-fullpath "sub-init/mavbozo_lisp"))
+(load (xah-get-fullpath "sub-init/mavbozo_org"))
 
-
-;; ORG MODE
-
-;; (define-key global-map "\C-cl" 'org-store-link)
-;; (define-key global-map "\C-ca" 'org-agenda)
-(defun mavbozo/org-mode-setup ()
-  (visual-line-mode 1))
-
-
-(defvar mavbozo-org-mode-keymap (make-keymap) "mavbozo-org-mode keymap.")
-(define-key mavbozo-org-mode-keymap (kbd "M-j c l") 'org-insert-link)
-(define-key mavbozo-org-mode-keymap (kbd "M-j c o") 'org-open-at-point)
-(define-key mavbozo-org-mode-keymap (kbd "M-j c c") 'org-capture)
-(define-key mavbozo-org-mode-keymap (kbd "M-j c ,") 'org-insert-structure-template)
-(define-key mavbozo-org-mode-keymap (kbd "M-j c -") 'org-ctrl-c-minus)
-(define-key mavbozo-org-mode-keymap (kbd "M-j c c") 'org-ctrl-c-ctrl-c) ;; set tag in heading
-
-
-(define-minor-mode mavbozo-org-mode
-  "Get your foos in the right places."
-  :lighter "mavbozo-org-mode"
-  :keymap mavbozo-org-mode-keymap)
-
-
-(use-package org
-  :pin org
-  :hook (org-mode . mavbozo/org-mode-setup)
-  (org-mode . mavbozo-org-mode)
-  :config
-  (setq org-log-done t)
-  (setq org-src-fontify-natively t))
-
-
-(setq org-default-notes-file "/mnt/c/Users/maver/SpiderOak/Archive/A/org/capture.org")
-
-
-
-;; "* TODO %?\n  %i\n  %a"
-(setq org-capture-templates
-      '(("t" "Todo" entry (file+headline "/mnt/c/Users/maver/SpiderOak/Archive/A/org/gtd.org" "Tasks")
-         "* TODO %^{Brief Description} %^g\n%?\nAdded: %U\n")
-        ("j" "Journal" entry (file+datetree "/mnt/c/Users/maver/SpiderOak/Archive/A/org/journal.org")
-         "* %?\nEntered on %U\n  %i\n  %a")))
-
-(setq org-agenda-files (list "/mnt/c/Users/maver/SpiderOak/Archive/A/org/gtd.org"))
-
-
-(setq org-agenda-custom-commands
-      '(("H" "Home Lists"
-	 ((agenda)
-          (tags-todo "HOME")))
-	("O" "Office Lists"
-	 ((agenda)
-          (tags-todo "OFFICE")))
-	("D" "Daily Action List"
-	 ((agenda "" ((org-agenda-ndays 1)
-                      (org-agenda-sorting-strategy
-                       (quote ((agenda time-up priority-down tag-up) )))
-                      (org-deadline-warning-days 0)
-                      ))))))
 
 ;; COMPANY MODE
 (use-package company)

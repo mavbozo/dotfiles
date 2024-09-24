@@ -9,7 +9,8 @@
   :hook
   (python-mode . flycheck-mode)
   (typescript-mode . flycheck-mode)
-  (js-mode . flycheck-mode))
+  (js-mode . flycheck-mode)
+  (go-mode . flycheck-mode))
 
 
 ;; (add-to-list 'load-path (xah-get-fullpath "ext-packages/flycheck"))
@@ -28,6 +29,7 @@
 ;; --------------------------------------------------
 ;; load files for various programming environments
 
+
 (defun mavbozo/lsp-mode-setup ()
   (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
   (lsp-headerline-breadcrumb-mode))
@@ -40,6 +42,8 @@
   :config
   (lsp-enable-which-key-integration t))
 
+
+;;;; OPTIMIZATION
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
 
 
@@ -95,7 +99,30 @@
 (add-to-list 'load-path (xah-get-fullpath "../ext-packages/yasnippet-snippets"))
 (setq yasnippet-snippets-dir (xah-get-fullpath "../ext-packages/yasnippet-snippets"))
 (use-package yasnippet-snippets
-  :load-path yasnippet-snippets-dir)
+  :load-path yasnippet-snippets-dir
+  :hook (slime-mode . yas-minor-mode))
 
-
+;; Silver Searcher
 (use-package ag)
+
+(setq string-edit-dir (xah-get-fullpath "../ext-packages/string-edit"))
+;;
+(use-package string-edit
+  :load-path string-edit-dir)
+
+;; paredit
+
+
+;; authinfo
+(setq auth-sources
+  '((:source "~/.authinfo.gpg")))
+
+;;;; Claude
+;;; Fetch API token from `auth-source` (e.g. .authinfo.gpg)
+(setq claude-shell-api-token (lambda () (auth-source-pick-first-password :host "api.anthropic.com")))
+
+(use-package shell-maker
+  :load-path "/home/mavbozo/.emacs.d/ext-packages/chatgpt-shell")
+
+(load "/home/mavbozo/dotfiles/.emacs.d/ext-packages/claude-shell/claude-shell-fontifier.el")
+(load "/home/mavbozo/dotfiles/.emacs.d/ext-packages/claude-shell/claude-shell.el")

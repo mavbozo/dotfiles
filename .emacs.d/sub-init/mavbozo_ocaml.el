@@ -3,7 +3,9 @@
 ;; Major mode for OCaml programming
 (use-package tuareg
   :defer t
-  :mode (("\\.ocamlinit\\'" . tuareg-mode)))
+  :mode (("\\.ocamlinit\\'" . tuareg-mode))
+  :config
+  (define-key tuareg-mode-map [remap eval-last-sexp] 'tuareg-eval-phrase))
 
 ;; Major mode for editing Dune project files
 (use-package dune

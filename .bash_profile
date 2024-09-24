@@ -25,10 +25,11 @@ alias "shadow-cljs-web-app-repl"="shadow-cljs -d cider/cider-nrepl:0.21.0 -d nre
 alias "lein-mavbozo-repl"="lein with-profile +mavbozo repl"
 
 export DISPLAY_NUMBER="0.0"
-export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):$DISPLAY_NUMBER
+# export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):$DISPLAY_NUMBER
+export DISPLAY=$(ip route | grep default | awk '{print $3; exit;}'):$DISPLAY_NUMBER
 
 # enable passphrase prompt for gpg
-export GPG_TTY=$(tty)
+# export GPG_TTY=$(tty)
 
 export MY_TODO_FILE=/mnt/c/Users/maver/SpiderOak/Archive/A/org/gtd.org
 . "$HOME/.cargo/env"
@@ -45,6 +46,6 @@ PS1="$PS1\[\e]12;#c0c0c0\a\]"
 
 if [ -e /home/mavbozo/.nix-profile/etc/profile.d/nix.sh ]; then . /home/mavbozo/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
-export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/usr/local/go/bin:/home/mavbozo/go/bin
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"

@@ -63,10 +63,10 @@
 ;; (define-key xah-fly-c-keymap (kbd "/") 'revert-buffer)
 
 ;; mavbozo personal-key map
-(define-key mavbozo/personal-keymap (kbd "n") nil)
-(define-key mavbozo/personal-keymap (kbd "n s") 'swiper)
-(define-key mavbozo/personal-keymap (kbd "n g") 'counsel-ag)
-(define-key mavbozo/personal-keymap (kbd "n f") 'counsel-git)
+(define-key mavbozo/personal-keymap (kbd "k") nil)
+(define-key mavbozo/personal-keymap (kbd "k s") 'swiper)
+(define-key mavbozo/personal-keymap (kbd "k g") 'counsel-ag)
+(define-key mavbozo/personal-keymap (kbd "k f") 'counsel-git)
 
 
 ;; mavbozo other keymap
@@ -79,7 +79,9 @@
 (define-key mavbozo/f5-keymap (kbd "x r j") 'jump-to-register)
 (define-key mavbozo/f5-keymap (kbd "m s") 'magit-status)
 (define-key mavbozo/f5-keymap (kbd "o c") 'org-capture)
+(define-key mavbozo/f5-keymap (kbd "o i") 'org-capture-inbox)
 (define-key mavbozo/f5-keymap (kbd "o a") 'org-agenda)
+(define-key mavbozo/f5-keymap (kbd "s e") 'string-edit-at-point)
 
 ;; make xah-fly-keys 【leader F5】 as prefix for mavbozo/f5-keymap
 (define-key xah-fly-leader-key-map (kbd "<f5>") mavbozo/f5-keymap)
@@ -87,10 +89,15 @@
 
 ;; COPILOT
 ;; copilot.el package requires editorconfig package
-(use-package editorconfig)
+;; (use-package editorconfig)
 
-(add-to-list 'load-path "~/.emacs.d/ext-packages/copilot.el")
-(require 'copilot)
-(add-hook 'prog-mode-hook 'copilot-mode)
-(define-key copilot-completion-map (kbd "<f5>") 'copilot-accept-completion)
-;; (define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)
+;; (add-to-list 'load-path "~/.emacs.d/ext-packages/copilot.el")
+;; (require 'copilot)
+;; (add-hook 'prog-mode-hook 'copilot-mode)
+;; (define-key copilot-completion-map (kbd "<f5>") 'copilot-accept-completion)
+;; ;; (define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)
+
+
+;; Default set to t, slow down when scrolling with mark on.
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Primary-Selection.html
+(setq select-active-regions nil)

@@ -4,6 +4,11 @@
 (use-package flycheck-clj-kondo
   :defer t)
 
+;; Clay package
+(setq mavbozo/clay-package-dir (xah-get-fullpath "../ext-packages/clay.el"))
+(use-package clay
+  :load-path mavbozo/clay-package-dir)
+
 
 (defun mavbozo/cider-dev>reset ()
     "convenient function to reset my clojure development system"
@@ -62,7 +67,7 @@
 
 (defun mavbozo/cider-mode-hook-fn ()
   (interactive)
-  
+  (require 'clay)
   (progn
     ;; create a keymap
     (define-prefix-command 'mavbozo/cider-leader-map)
@@ -96,6 +101,15 @@
     ;; test
     (define-key mavbozo/cider-leader-map (kbd "t n") 'cider-test-run-ns-tests)
     (define-key mavbozo/cider-leader-map (kbd "t t") 'cider-test-run-test)
+
+    ;; clay, for statistic, machine learning
+    (define-key mavbozo/cider-leader-map (kbd "l n h") 'clay-make-ns-html)
+    (define-key mavbozo/cider-leader-map (kbd "l , m") 'clay-make-last-sexp)
+    (define-key mavbozo/cider-leader-map (kbd "l t h") 'clay-make-ns-quarto-html)
+    (define-key mavbozo/cider-leader-map (kbd "l i m") 'mavbozo/clojure-insert-md-string)
+
+    ;; temporary
+    (define-key mavbozo/cider-leader-map (kbd "t w") 'mavbozo/wrap-with-gg-image)
     )
   ;; modify the major mode's key map, so that a key becomes your leader key
   (define-key cider-mode-map (kbd "M-j") mavbozo/cider-leader-map)
@@ -113,10 +127,7 @@
   ;;           (if my-minor-mode-name
   ;;               (add-hook 'after-save-hook #'a-func-from-my-minor-mode nil 'local)
   ;;             (remove-hook 'after-save-hook #'a-func-from-my-minor-mode 'local))))
-  ;; (add-hook 'before-save-hook 'cider-format-buffer t t)
-  (if cider-mode
-      (add-hook 'before-save-hook 'cider-format-buffer t t)
-    (remove-hook 'before-save-hook 'cider-format-buffer)))
+  )
 
 (defun mavbozo/cider-repl-mode-hook-fn ()
   (interactive)
@@ -182,3 +193,26 @@
 
 ;; make xah-fly-keys ALT-f as prefix for my-keymap
 ;; (define-key xah-fly-leader-key-map (kbd "M-f") my-keymap)
+
+
+;;
+(defun mavbozo/clojure-insert-md-string ()
+  "Insert (md \"\") at point and place cursor between the quotes."
+  (interactive)
+  (insert "(md \"\")")
+  (backward-char 2))
+
+
+;;;; fasmath random tutorial helper
+
+(defun mavbozo/wrap-with-gg-image ()
+  "Wrap the sexp at point with (gg/->image ...)."
+  (interactive)
+  (save-excursion
+    (let ((sexp-start (point))
+           (sexp-end (progn (forward-sexp) (point))))
+      (goto-char sexp-end)
+      (insert ")")
+      (goto-char sexp-start)
+      (insert "(gg/->image ")
+      (indent-region sexp-start (point)))))

@@ -13,6 +13,28 @@ Version 2016-10-24"
 
 (clear-abbrev-table global-abbrev-table)
 
+(define-abbrev-table 'global-abbrev-table
+  '(
+    ;; MIT License
+    ("mitlicensereadme" "## License
+
+Copyright (c) {{now/year}} {{developer}}
+
+This project is licensed under the MIT License. This means you are free to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the
+software, under the following conditions:
+
+- The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+- The software is provided \"as is\", without warranty of any kind, express or
+  implied.
+
+For the full license text, see the [LICENSE.txt](LICENSE.txt) file in the repository.
+")
+    ("mitlicenseperfile" "Copyright (c) 2024 Avicenna
+This source code is licensed under the MIT license found in the
+LICENSE.txt file in the root directory of this source tree.")))
+
 ;; define abbrev for specific major mode
 ;; the first part of the name should be the value of the variable major-mode of that mode
 ;; e.g. for go-mode, name should be go-mode-abbrev-table
@@ -24,9 +46,12 @@ Version 2016-10-24"
     ("comment" "(comment
 #_ comment-start
 
-#_ comment-end)" xah-abbrev-ahf)
+#_ comment-end)" )
+     ("kindtable" "(kind/table
+ {:column-names [:Symbol :Info]
+  :row-vectors []})" xah-abbrev-ahf)
+     
     )
-  
   )
 
 
@@ -46,6 +71,34 @@ Version 2016-10-24"
     ("logd" "logging.debug()")
     ("logw" "logging.warn()")
     ("loge" "logging.error()")
+    )
+  )
+
+
+(when (boundp 'org-mode-abbrev-table)
+  (clear-abbrev-table org-mode-abbrev-table))
+
+(define-abbrev-table 'org-mode-abbrev-table
+  '(
+     ("example-project" "** Example [/]                                                   :example:
+:PROPERTIES:
+:CATEGORY: Example
+:VISIBILITY: hide
+:COOKIE_DATA: recursive todo
+:END:
+*** Information                                                      :info:
+:PROPERTIES:
+:VISIBILITY: hide
+:END:
+*** Notes                                                           :notes:
+:PROPERTIES:
+:VISIBILITY: hide
+:END:
+*** Tasks                                                           :tasks:
+:PROPERTIES:
+:VISIBILITY: content
+:END:
+")
     )
   )
 

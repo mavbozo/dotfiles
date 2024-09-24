@@ -1,4 +1,5 @@
-
+(add-hook 'emacs-lisp-mode-hook
+  (lambda () (setq-local lisp-indent-offset 2)))
 
 
 ;; (defun mavbozo/eval-last-sexp-wrapper ()
