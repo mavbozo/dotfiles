@@ -31,3 +31,6 @@
 [submodule ".emacs.d/ext-packages/magit"]
 	path = .emacs.d/ext-packages/magit
 	url = git@github.com:magit/magit.git
+[submodule ".emacs.d/ext-packages/slime"]
+	path = .emacs.d/ext-packages/slime
+	url = git@github.com:mavbozo/slime.git

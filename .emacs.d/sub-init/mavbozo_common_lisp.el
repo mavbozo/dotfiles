@@ -15,16 +15,20 @@
   (define-key slime-mode-map (kbd "M-j") mavbozo/slime-leader-map)
   )
 
+(setq slime-repo-path (xah-get-fullpath "../ext-packages/slime"))
+
 (use-package slime
-  :load-path "/home/mavbozo/yolo/slime"
+  :load-path slime-repo-path
   :config
   (setq inferior-lisp-program "sbcl")
   (define-key slime-mode-map [remap eval-last-sexp] 'slime-eval-last-expression)
   (define-key slime-mode-map [remap eval-buffer] 'slime-eval-buffer)
   (define-key slime-mode-map [remap eval-region] 'slime-eval-region)
   (require 'slime-autoloads)
-  (setq slime-contribs '(slime-fancy slime-mrepl slime-indentation slime-company))
-  (slime-setup '(slime-fancy slime-company))
+  (setq slime-contribs '(slime-fancy slime-mrepl slime-indentation ;; slime-company
+			  ))
+  (slime-setup '(slime-fancy ;; slime-company
+		  ))
   (setq lisp-indent-function 'common-lisp-indent-function)
   (setq common-lisp-style-default "sbcl")
   (add-hook 'slime-mode-hook 'mavbozo/slime-mode-hook-fn))
