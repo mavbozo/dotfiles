@@ -38,23 +38,23 @@
      (search . " %i %-12:c")))
 
 ;; Files
-(setq org-directory "/mnt/c/Users/maver/SpiderOak/Archive/A/org")
+(setq org-directory "/home/mavbozo/personal-files/Archive/A/org")
 ;; (setq org-agenda-files 
 ;;       (mapcar 'file-truename 
 ;;           (file-expand-wildcards "~/Documents/org/*.org")))
 (setq org-agenda-files (list
-			 "/mnt/c/Users/maver/SpiderOak/Archive/A/org/inbox.org"
-			 "/mnt/c/Users/maver/SpiderOak/Archive/A/org/agenda.org"
-			 "/mnt/c/Users/maver/SpiderOak/Archive/A/org/notes.org"
-			 "/mnt/c/Users/maver/SpiderOak/Archive/A/org/projects.org"
+			 "/home/mavbozo/personal-files/Archive/A/org/inbox.org"
+			 "/home/mavbozo/personal-files/Archive/A/org/agenda.org"
+			 "/home/mavbozo/personal-files/Archive/A/org/notes.org"
+			 "/home/mavbozo/personal-files/Archive/A/org/projects.org"
 			   ;; "capture.org"
-			   ;; "/mnt/c/Users/maver/SpiderOak/Archive/A/org/gtd.org"
+			   ;; "/home/mavbozo/personal-files/Archive/A/org/gtd.org"
 			 ))
 
 ;; Capture
 
-;; (setq org-default-notes-file "/mnt/c/Users/maver/SpiderOak/Archive/A/org/capture.org")
-;; (setq org-default-notes-file "/mnt/c/Users/maver/SpiderOak/Archive/A/org/inbox.org")
+;; (setq org-default-notes-file "/home/mavbozo/personal-files/Archive/A/org/capture.org")
+;; (setq org-default-notes-file "/home/mavbozo/personal-files/Archive/A/org/inbox.org")
 (setq org-capture-templates
   `(("i" "Inbox" entry  (file "inbox.org")
       "* TODO %^{Brief Description} %^g\n%?\nAdded: %U\n")
@@ -63,9 +63,9 @@
      ("n" "Note" entry  (file "notes.org")
        ,(concat "* Note (%a)\n"
           "/Entered on/ %U\n" "\n" "%?"))
-    ;; ("t" "Todo" entry (file+headline "/mnt/c/Users/maver/SpiderOak/Archive/A/org/gtd.org" "Tasks")
+    ;; ("t" "Todo" entry (file+headline "/home/mavbozo/personal-files/Archive/A/org/gtd.org" "Tasks")
     ;;    "* TODO %^{Brief Description} %^g\n%?\nAdded: %U\n")
-    ;; ("j" "Journal" entry (file+datetree "/mnt/c/Users/maver/SpiderOak/Archive/A/org/journal.org")
+    ;; ("j" "Journal" entry (file+datetree "/home/mavbozo/personal-files/Archive/A/org/journal.org")
     ;;   "* %?\nEntered on %U\n  %i\n  %a")
      ))
 
