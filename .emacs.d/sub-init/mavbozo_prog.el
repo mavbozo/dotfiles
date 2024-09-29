@@ -102,6 +102,8 @@
   :load-path yasnippet-snippets-dir
   :hook (slime-mode . yas-minor-mode))
 
+;; (add-to-list 'yas-snippet-dirs (xah-get-fullpath "../ext-packages/yasnippet-snippets"))
+
 ;; Silver Searcher
 (use-package ag)
 
