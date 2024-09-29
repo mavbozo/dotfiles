@@ -221,17 +221,22 @@ To solve this problem, when your code only knows the relative path of another fi
 
 ;;;; MAGIT
 
-;; 2024-09-02, I use magit version 3.0.0 and transient version 0.3.6
-;; because error: cl--generic-build-combined-method: Cyclic definition: %S: loadhist-unload-element when running git
+;; 2024-09-02 manually pin magit, transient, and with-editor with specific version because error: cl--generic-build-combined-method: Cyclic definition: %S: loadhist-unload-element when running git
 
+;; use with-editor repo with tag v3.0.5
+(setq with-editor-repo-path (xah-get-fullpath "ext-packages/with-editor"))
 (use-package with-editor
-  :load-path "/home/mavbozo/yolo/with-editor")
+  :load-path with-editor-repo-path)
 
+;; use transient repo with tag v0.4.1
+(setq transient-repo-path (xah-get-fullpath "ext-packages/transient/lisp"))
 (use-package transient
-  :load-path "/home/mavbozo/yolo/transient/lisp")
+  :load-path transient-repo-path)
 
+;; use magit repo with tag v3.3.0
+(setq magit-repo-path (xah-get-fullpath "ext-packages/magit/lisp"))
 (use-package magit
-  :load-path "/home/mavbozo/yolo/magit/lisp"
+  :load-path magit-repo-path
   :commands magit-status
   :config
   (setq magit-completing-read-function 'ivy-completing-read))

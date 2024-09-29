@@ -22,3 +22,12 @@
 [submodule ".emacs.d/ext-packages/claude-shell"]
 	path = .emacs.d/ext-packages/claude-shell
 	url = git@github.com:mavbozo/claude-shell.git
+[submodule ".emacs.d/ext-packages/with-editor"]
+	path = .emacs.d/ext-packages/with-editor
+	url = git@github.com:magit/with-editor.git
+[submodule ".emacs.d/ext-packages/transient"]
+	path = .emacs.d/ext-packages/transient
+	url = git@github.com:magit/transient.git
+[submodule ".emacs.d/ext-packages/magit"]
+	path = .emacs.d/ext-packages/magit
+	url = git@github.com:magit/magit.git
