@@ -102,7 +102,7 @@
   :load-path yasnippet-snippets-dir
   :hook (slime-mode . yas-minor-mode))
 
-;; (add-to-list 'yas-snippet-dirs (xah-get-fullpath "../ext-packages/yasnippet-snippets"))
+(add-to-list 'yas-snippet-dirs (xah-get-fullpath "../ext-packages/yasnippet-snippets"))
 
 ;; Silver Searcher
 (use-package ag)
@@ -112,10 +112,21 @@
 (use-package string-edit
   :load-path string-edit-dir)
 
-;; paredit
+;;;; paredit
+(setq mavbozo/paredit-path (xah-get-fullpath "../ext-packages/paredit"))
 
+(use-package paredit
+  :load-path mavbozo/paredit-path)
 
-;; authinfo
+(progn
+  ;; change isearch's keys to use arrows to repeat
+  (define-key paredit-mode-map (kbd "M-d") 'paredit-forward)
+  (define-key paredit-mode-map (kbd "M-a") 'paredit-backward)
+  (define-key paredit-mode-map (kbd "M-w") 'paredit-backward-up)
+  (define-key paredit-mode-map (kbd "M-s") 'paredit-forward-down)
+  (define-key paredit-mode-map (kbd "RET") 'paredit-newline))
+
+;;;; authinfo
 (setq auth-sources
   '((:source "~/.authinfo.gpg")))
 

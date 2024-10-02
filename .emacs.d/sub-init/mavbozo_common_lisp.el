@@ -92,8 +92,3 @@
 	      (insert output value)
 	      (lisp-mode))
 	    (pop-to-buffer buf)))))))
-
-(setq mavbozo/paredit-path (xah-get-fullpath "../ext-packages/paredit"))
-
-(use-package paredit
-  :load-path mavbozo/paredit-path)

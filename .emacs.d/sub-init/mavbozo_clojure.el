@@ -38,7 +38,10 @@
     (define-key mavbozo/clojure-leader-map (kbd "i") 'inf-clojure)
     (define-key mavbozo/clojure-leader-map (kbd "c") 'cider-connect)
     (define-key mavbozo/clojure-leader-map (kbd "j") 'cider-jack-in)
-    
+    (font-lock-mode -1) ;; i don't want syntax coloring
+    (setq company-idle-delay nil) ;; i don't want automatic completion
+    (electric-indent-local-mode -1) ;; no electric indent because i want to use paredit
+    (enable-paredit-mode) ;; paredit
     )
   ;; modify the major mode's key map, so that a key becomes your leader key
   (define-key clojure-mode-map (kbd "<f9>") mavbozo/clojure-leader-map))

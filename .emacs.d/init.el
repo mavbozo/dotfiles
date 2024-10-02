@@ -30,7 +30,7 @@
 (menu-bar-mode -1)            ; Disable the menu bar
 
 (column-number-mode)
-(global-display-line-numbers-mode t)
+;; (global-display-line-numbers-mode t)
 
 ;; Set frame transparency
 (set-frame-parameter (selected-frame) 'alpha mavbozo/frame-transparency)
