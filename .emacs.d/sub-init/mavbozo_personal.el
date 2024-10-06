@@ -67,6 +67,7 @@
 (define-key mavbozo/personal-keymap (kbd "k s") 'swiper)
 (define-key mavbozo/personal-keymap (kbd "k g") 'counsel-ag)
 (define-key mavbozo/personal-keymap (kbd "k f") 'counsel-git)
+(define-key mavbozo/personal-keymap (kbd "k c") 'counsel-company)
 
 
 ;; mavbozo other keymap
