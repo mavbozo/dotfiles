@@ -15,25 +15,17 @@
 (define-prefix-command 'mavbozo/personal-keymap)
 (define-prefix-command 'mavbozo/prog-keymap)
 
-;; prerequisite: set xah-fly keyboard to qwerty first.
-;; make xah-fly-keys 【leader SPACE j】 as prefix for 'mavbozo/personal-keymap
-;; put this AFTER loading Xah Fly Keys
-(define-key xah-fly-leader-key-map (kbd "SPC") 'nil)
-(define-key xah-fly-leader-key-map (kbd "SPC SPC") 'xah-fly-insert-mode-activate)
-(define-key xah-fly-leader-key-map (kbd "SPC j") 'mavbozo/personal-keymap)
+;; my personal keymap prefix 
+(define-key global-map (kbd "M-k") 'mavbozo/personal-keymap)
 
-;; change xah-fly-keys 【leader j】 as prefix for my-keymap
-;; prerequisite: set xah-fly keyboard to qwerty first.
-;; (define-key xah-fly-leader-key-map (kbd "z") 'xah-fly-h-keymap)
-
-(define-key xah-fly-leader-key-map (kbd "M-j") 'mavbozo/prog-keymap)
+(define-key xah-fly-leader-key-map (kbd "SPC") 'xah-fly-insert-mode-activate)
 
 ;; Make 《F8》 Key Do Cancel (C-g)
 (define-key key-translation-map (kbd "<f8>") (kbd "C-g"))
 ;; Make M-f / ALT-f Key Do Cancel (C-g)
 (define-key key-translation-map (kbd "M-h") (kbd "C-g"))
-; Make M-p / ALT-p Key Quoted Insert (C-q)
-(define-key key-translation-map (kbd "M-k") (kbd "C-q"))
+;; Make M-p / ALT-p Key Quoted Insert (C-q)
+;; (define-key key-translation-map (kbd "M-k") (kbd "C-q"))
 
 (defun mavbozo/load-light-theme ()
   (interactive)

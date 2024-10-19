@@ -97,12 +97,13 @@
 
 ;; yasnippet-snippets
 (add-to-list 'load-path (xah-get-fullpath "../ext-packages/yasnippet-snippets"))
-(setq yasnippet-snippets-dir (xah-get-fullpath "../ext-packages/yasnippet-snippets"))
-(use-package yasnippet-snippets
-  :load-path yasnippet-snippets-dir
-  :hook (slime-mode . yas-minor-mode))
+(setq yasnippet-snippets-package-dir (xah-get-fullpath "../ext-packages/yasnippet-snippets"))
+(require 'yasnippet-snippets)
+;; (use-package yasnippet-snippets
+;;   :load-path yasnippet-snippets-package-dir
+;;   :hook (slime-mode . yas-minor-mode))
 
-(add-to-list 'yas-snippet-dirs (xah-get-fullpath "../ext-packages/yasnippet-snippets"))
+;; (add-to-list 'yas-snippet-dirs (xah-get-fullpath "../ext-packages/yasnippet-snippets"))
 
 ;; Silver Searcher
 (use-package ag)

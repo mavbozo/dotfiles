@@ -81,7 +81,7 @@ To solve this problem, when your code only knows the relative path of another fi
 ;; backup in one place. flat, no tree structure
 (setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
 
-(setq initial-buffer-choice "/home/mavbozo/personal-files/Archive/A/org/gtd.org")
+(setq initial-buffer-choice "/home/mavbozo/personal-files/My files/Archive/A/org/gtd.org")
 
 ;; FONT
 ;; set a default font
