@@ -1,0 +1,18 @@
+[user]
+	email = mavbozo@pm.me
+	name = mavbozo
+	signingKey = 195B0003
+[commit]
+	gpgsign = true
+[pull]
+	rebase = false
+[url "https://"]
+	insteadOf = git://
+[includeIf "gitdir:~/yolo/zenius/"]
+        path = ~/.gitconfig_zenius
+[includeIf "gitdir:~/yolo/zen-skuad/"]
+        path = ~/.gitconfig_zenius
+[includeIf "gitdir:~/yolo/zen-progen/"]
+	path = ~/.gitconfig_zenius   			
+[credential]
+	helper = cache
