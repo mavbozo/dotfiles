@@ -3,7 +3,7 @@
 (defvar mavbozo/default-variable-font-size 200)
 
 ;; Make frame transparency overridable
-(defvar mavbozo/frame-transparency '(90 . 90))
+(defvar mavbozo/frame-transparency '(100 . 100))
 
 ;; set gc cons higher during startup
 ;; The default is 800 kilobytes.  Measured in bytes.
@@ -81,7 +81,10 @@ To solve this problem, when your code only knows the relative path of another fi
 ;; backup in one place. flat, no tree structure
 (setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
 
-(setq initial-buffer-choice "/home/mavbozo/personal-files/My files/Archive/A/org/gtd.org")
+(setq mavbozo-personal-files-dir (getenv "MAVBOZO_PERSONAL_FILES"))
+(and mavbozo-personal-files-dir
+  (setq initial-buffer-file (concat mavbozo-personal-files-dir "/Archive/A/org/inbox.org")))
+
 
 ;; FONT
 ;; set a default font
@@ -95,7 +98,8 @@ To solve this problem, when your code only knows the relative path of another fi
 
 ;; WHERE EMACS SAVE THE CUSTOMIZATION
 (setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
+;; load custom file if exists, useful for fresh install
+(and (file-exists-p "~/.emacs.d/custom.el") (load custom-file))
 
 
 ;; INITIALIZE PACKAGE SOURCES

@@ -37,19 +37,17 @@
      (tags   . " %i %-12:c")
      (search . " %i %-12:c")))
 
+(setq mavbozo-personal-files-dir (getenv "MAVBOZO_PERSONAL_FILES"))
+
+(and mavbozo-personal-files-dir
+  (setq org-directory (concat mavbozo-personal-files-dir "/Archive/A/org")))
+
 ;; Files
-(setq org-directory "/home/mavbozo/personal-files/Archive/A/org")
-;; (setq org-agenda-files 
-;;       (mapcar 'file-truename 
-;;           (file-expand-wildcards "~/Documents/org/*.org")))
-(setq org-agenda-files (list
-			 "/home/mavbozo/personal-files/Archive/A/org/inbox.org"
-			 "/home/mavbozo/personal-files/Archive/A/org/agenda.org"
-			 "/home/mavbozo/personal-files/Archive/A/org/notes.org"
-			 "/home/mavbozo/personal-files/Archive/A/org/projects.org"
-			   ;; "capture.org"
-			   ;; "/home/mavbozo/personal-files/Archive/A/org/gtd.org"
-			 ))
+(setq org-agenda-files 
+  (mapcar (lambda (f)
+	    (concat org-directory "/" f)) 
+    '("inbox.org" "agenda.org" "notes.org" "projects.org")))
+
 
 ;; Capture
 
