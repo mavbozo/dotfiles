@@ -37,7 +37,6 @@
      (tags   . " %i %-12:c")
      (search . " %i %-12:c")))
 
-(setq mavbozo-personal-files-dir (getenv "MAVBOZO_PERSONAL_FILES"))
 
 (and mavbozo-personal-files-dir
   (setq org-directory (concat mavbozo-personal-files-dir "/Archive/A/org")))

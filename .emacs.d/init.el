@@ -81,9 +81,17 @@ To solve this problem, when your code only knows the relative path of another fi
 ;; backup in one place. flat, no tree structure
 (setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
 
-(setq mavbozo-personal-files-dir (getenv "MAVBOZO_PERSONAL_FILES"))
+(if (file-exists-p "~/.emacs.d/local_config.el")
+  (load "~/.emacs.d/local_config.el")
+  (message "Ensure local_config.el is setup"))
+
+(if (boundp 'mavbozo-personal-files)
+  (setq mavbozo-personal-files-dir mavbozo-personal-files)
+  (message "Please setup mavbozo-personal-files in local_config.el"))
+
+
 (and mavbozo-personal-files-dir
-  (setq initial-buffer-file (concat mavbozo-personal-files-dir "/Archive/A/org/inbox.org")))
+  (setq initial-buffer-choice (concat mavbozo-personal-files-dir "/Archive/A/org/inbox.org")))
 
 
 ;; FONT
