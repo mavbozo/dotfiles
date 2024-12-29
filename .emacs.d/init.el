@@ -93,15 +93,16 @@ To solve this problem, when your code only knows the relative path of another fi
 (and mavbozo-personal-files-dir
   (setq initial-buffer-choice (concat mavbozo-personal-files-dir "/Archive/A/org/inbox.org")))
 
-
 ;; FONT
-;; set a default font
-;; (set-face-attribute 'default nil :font "Fira Code Retina" :height mavbozo/default-font-size)
+;; set a default font in mac, default Fira Code Retina
+(if (eq system-type 'darwin)
+  (set-face-attribute 'default nil :font "Fira Code Retina" :height mavbozo/default-font-size)
+  (progn
+    ;; Set the fixed pitch face
+    (when (member "DejaVu Sans Mono" (font-family-list))
+      (set-face-attribute 'default nil :font "DejaVu Sans Mono 18"))))
 
-;; Set the fixed pitch face
-;; (set-face-attribute 'fixed-pitch nil :font "Fira Code Retina" :height mavbozo/default-font-size)
-(when (member "DejaVu Sans Mono" (font-family-list))
-  (set-face-attribute 'default nil :font "DejaVu Sans Mono 18"))
+
 
 
 ;; WHERE EMACS SAVE THE CUSTOMIZATION
@@ -261,6 +262,8 @@ To solve this problem, when your code only knows the relative path of another fi
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
   (setq ivy-count-format "(%d/%d) "))
+
+(use-package counsel)
 
 ;; set frame-title to file path
 (setq frame-title-format

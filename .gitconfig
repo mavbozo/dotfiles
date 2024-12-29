@@ -1,6 +1,6 @@
 [user]
 	email = mavbozo@pm.me
-	name = mavbozo
+	name = Maverick Bozo
 	signingKey = 195B0003
 [commit]
 	gpgsign = true
@@ -16,3 +16,10 @@
 	path = ~/.gitconfig_zenius   			
 [credential]
 	helper = cache
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[gpg]
+	program = /opt/homebrew/bin/gpg
