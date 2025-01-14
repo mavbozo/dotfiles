@@ -174,7 +174,7 @@ See also `org-save-all-org-buffers'"
 (defun mavbozo-org/insert-custom-project-template (s)
   "insert custom project template with name s on cursor"
   (interactive "sEnter project name: ")
-  (insert (format "%s [/]                                                   
+  (insert (format "** %s [/]                                                   
 :PROPERTIES:
 :CATEGORY: Project
 :VISIBILITY: hide
