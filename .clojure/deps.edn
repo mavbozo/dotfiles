@@ -81,7 +81,7 @@
 
   ;; clj -M:cider/repl
   :cider/repl
-  {:extra-deps {cider/cider-nrepl {:mvn/version "0.49.3"}}
+  {:extra-deps {cider/cider-nrepl {:mvn/version "0.50.2"}}
    :main-opts ["-m" "nrepl.cmdline" "--middleware" "[cider.nrepl/cider-middleware]"]}
 
   :project/create
