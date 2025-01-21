@@ -115,9 +115,10 @@ To solve this problem, when your code only knows the relative path of another fi
 (require 'package)
 
 (setq package-archives '(;; ("melpa" . "https://melpa.org/packages/")
-			 ("melpa-stable" . "https://stable.melpa.org/packages/")
-                         ("org" . "https://orgmode.org/elpa/")
-                         ("elpa" . "https://elpa.gnu.org/packages/")))
+			  ("melpa-stable" . "https://stable.melpa.org/packages/")
+                          ("org" . "https://orgmode.org/elpa/")
+                          ;; ("elpa" . "https://elpa.gnu.org/packages/")
+			  ))
 
 (package-initialize)
 
@@ -282,6 +283,7 @@ To solve this problem, when your code only knows the relative path of another fi
 (load (xah-get-fullpath "sub-init/mavbozo_common_lisp"))
 (load (xah-get-fullpath "sub-init/mavbozo_lisp"))
 (load (xah-get-fullpath "sub-init/mavbozo_org"))
+(load (xah-get-fullpath "sub-init/mavbozo-nix"))
 
 
 ;; COMPANY MODE
