@@ -195,6 +195,13 @@ See also `org-save-all-org-buffers'"
 " s)))
 
 
+(defun mavbozo-org/insert-default-title (s)
+  "insert org file title with name s on cursor"
+  (interactive "sEnter document name: ")
+  (insert (format "#+title: %s
+#+author: Avi" s)))
+
+
 (setq holiday-other-holidays
   '((holiday-fixed 1 1 "Tahun Baru")
      (holiday-fixed 8 17 "17 Agustusan")
