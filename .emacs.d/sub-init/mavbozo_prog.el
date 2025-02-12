@@ -127,16 +127,3 @@
   (define-key paredit-mode-map (kbd "M-s") 'paredit-forward-down)
   (define-key paredit-mode-map (kbd "RET") 'paredit-newline))
 
-;;;; authinfo
-(setq auth-sources
-  '((:source "~/.authinfo.gpg")))
-
-;;;; Claude
-;;; Fetch API token from `auth-source` (e.g. .authinfo.gpg)
-(setq claude-shell-api-token (lambda () (auth-source-pick-first-password :host "api.anthropic.com")))
-
-;; (use-package shell-maker
-;;   :load-path "/home/mavbozo/.emacs.d/ext-packages/chatgpt-shell")
-
-;; (load "/home/mavbozo/dotfiles/.emacs.d/ext-packages/claude-shell/claude-shell-fontifier.el")
-;; (load "/home/mavbozo/dotfiles/.emacs.d/ext-packages/claude-shell/claude-shell.el")

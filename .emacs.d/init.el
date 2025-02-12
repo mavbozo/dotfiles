@@ -235,22 +235,7 @@ To solve this problem, when your code only knows the relative path of another fi
 
 ;;;; MAGIT
 
-;; 2024-09-02 manually pin magit, transient, and with-editor with specific version because error: cl--generic-build-combined-method: Cyclic definition: %S: loadhist-unload-element when running git
-
-;; use with-editor repo with tag v3.0.5
-(setq with-editor-repo-path (xah-get-fullpath "ext-packages/with-editor"))
-(use-package with-editor
-  :load-path with-editor-repo-path)
-
-;; use transient repo with tag v0.4.1
-(setq transient-repo-path (xah-get-fullpath "ext-packages/transient/lisp"))
-(use-package transient
-  :load-path transient-repo-path)
-
-;; use magit repo with tag v3.3.0
-(setq magit-repo-path (xah-get-fullpath "ext-packages/magit/lisp"))
 (use-package magit
-  :load-path magit-repo-path
   :commands magit-status
   :config
   (setq magit-completing-read-function 'ivy-completing-read))
@@ -284,6 +269,7 @@ To solve this problem, when your code only knows the relative path of another fi
 (load (xah-get-fullpath "sub-init/mavbozo_lisp"))
 (load (xah-get-fullpath "sub-init/mavbozo_org"))
 (load (xah-get-fullpath "sub-init/mavbozo-nix"))
+(load (xah-get-fullpath "sub-init/mavbozo-llm"))
 
 
 ;; COMPANY MODE
