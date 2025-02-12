@@ -18,6 +18,7 @@
 ;; my personal keymap prefix 
 (define-key global-map (kbd "M-k") 'mavbozo/personal-keymap)
 
+
 (define-key xah-fly-leader-key-map (kbd "SPC") 'xah-fly-insert-mode-activate)
 
 ;; Make 《F8》 Key Do Cancel (C-g)
@@ -55,11 +56,10 @@
 ;; (define-key xah-fly-c-keymap (kbd "/") 'revert-buffer)
 
 ;; mavbozo personal-key map
-(define-key mavbozo/personal-keymap (kbd "k") nil)
-(define-key mavbozo/personal-keymap (kbd "k s") 'swiper)
-(define-key mavbozo/personal-keymap (kbd "k g") 'counsel-ag)
-(define-key mavbozo/personal-keymap (kbd "k f") 'counsel-git)
-(define-key mavbozo/personal-keymap (kbd "k c") 'counsel-company)
+(define-key mavbozo/personal-keymap (kbd "s") 'swiper)
+(define-key mavbozo/personal-keymap (kbd "g") 'counsel-ag)
+(define-key mavbozo/personal-keymap (kbd "f") 'counsel-git)
+(define-key mavbozo/personal-keymap (kbd "c") 'counsel-company)
 
 
 ;; mavbozo other keymap
