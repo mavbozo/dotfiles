@@ -1,8 +1,12 @@
 ;; require xah-fly-keys
 
 (defun mavbozo/xah-fly-keys-mode ()
+  "Toggle `xah-fly-keys' mode.
+Enable xah-fly-keys if it's disabled, disable if it's enabled."
   (interactive)
-  (xah-fly-keys 1))
+  (if xah-fly-keys
+    (xah-fly-keys -1)
+    (xah-fly-keys 1)))
 
 (global-set-key (kbd "<f6>") 'mavbozo/xah-fly-keys-mode)
 
