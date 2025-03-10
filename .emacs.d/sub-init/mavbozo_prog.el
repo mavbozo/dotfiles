@@ -127,3 +127,6 @@
   (define-key paredit-mode-map (kbd "M-s") 'paredit-forward-down)
   (define-key paredit-mode-map (kbd "RET") 'paredit-newline))
 
+
+;; add my cryptonym generator from local disk
+(add-to-list 'load-path "/Users/mavbozo/yolo/bloir")
