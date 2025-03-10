@@ -219,3 +219,18 @@
       (goto-char sexp-start)
       (insert "(gg/->image ")
       (indent-region sexp-start (point)))))
+
+
+(defun mavbozo-lein-deps-to-deps-region ()
+  "Convert [artifact version] to artifact {:mvn/version version} format.
+Operates only in the marked region."
+  (interactive)
+  (when (use-region-p)
+    (save-excursion
+      (let ((start (region-beginning))
+            (end (region-end)))
+        (goto-char start)
+        (while (re-search-forward "\\[\\([^ \t\n]+\\)\\s-+\\(\"[^\"]+\"\\)\\]" end t)
+          (let ((artifact (match-string 1))
+                (version (match-string 2)))
+            (replace-match (format "%s {:mvn/version %s}" artifact version))))))))
