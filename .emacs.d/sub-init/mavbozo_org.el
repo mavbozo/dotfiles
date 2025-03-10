@@ -21,14 +21,30 @@
   :lighter "mavbozo-org-mode"
   :keymap mavbozo-org-mode-keymap)
 
-
 (use-package org
   :pin org
   :hook (org-mode . mavbozo/org-mode-setup)
   (org-mode . mavbozo-org-mode)
   :config
-  
-  (setq org-src-fontify-natively t))
+  (setq org-src-fontify-natively t)
+  ;; macosx fix by appending basename to %f
+  (setcar (nthcdr 0 org-preview-latex-process-alist)
+    '(dvipng :programs
+       ("latex" "dvipng")
+       :description "dvi > png" :message "you need to install the programs: latex and dvipng." :image-input-type "dvi" :image-output-type "png" :image-size-adjust
+       (1.0 . 1.0)
+       :latex-compiler
+       ("latex -interaction nonstopmode -output-directory %o %f")
+       :image-converter
+       ("dvipng -D %D -T tight -o %O %f")
+       :transparent-image-converter
+       ("dvipng -D %D -T tight -bg Transparent -o %O `basename %f`")))
+
+  (setq org-format-latex-options
+    '(:foreground default :background default :scale 2.0 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
+       ("begin" "$1" "$" "$$" "\\(" "\\[")))
+
+  )
 
 (setq org-agenda-hide-tags-regexp ".")
 (setq org-agenda-prefix-format
