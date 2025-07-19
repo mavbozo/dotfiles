@@ -84,6 +84,11 @@
   {:extra-deps {cider/cider-nrepl {:mvn/version "0.50.2"}}
    :main-opts ["-m" "nrepl.cmdline" "--middleware" "[cider.nrepl/cider-middleware]"]}
 
+  :cider/repl-w-mcp
+  {:extra-deps {cider/cider-nrepl {:mvn/version "0.50.2"}}
+   :jvm-opts ["-Djdk.attach.allowAttachSelf"]						 
+   :main-opts ["-m" "nrepl.cmdline" "--port" "7888" "--middleware" "[cider.nrepl/cider-middleware]"]}
+
   :project/create
   {:replace-deps {io.github.seancorfield/deps-new
                   {:git/tag "v0.5.2" :git/sha "253f32a"}
@@ -92,5 +97,13 @@
    :exec-fn      org.corfield.new/create
    :exec-args    {:template practicalli/minimal
                   :name practicalli/playground}}
+
+  ;; Clojure MCP
+  :mcp 
+  {:deps {org.slf4j/slf4j-nop {:mvn/version "2.0.16"} ;; Required for stdio server
+          com.bhauman/clojure-mcp {:git/url "https://github.com/bhauman/clojure-mcp.git"
+                                   :git/sha "1cc8eb12cc880a7096696f1aef47b9cfd3de74ac"}}
+   :exec-fn clojure-mcp.main/start-mcp-server
+   :exec-args {:port 7888}}
   }
- }
+}
