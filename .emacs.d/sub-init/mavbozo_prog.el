@@ -6,6 +6,7 @@
 
 ;; FLYCHECK
 (use-package flycheck
+  :ensure nil
   :hook
   (python-mode . flycheck-mode)
   (typescript-mode . flycheck-mode)
@@ -127,6 +128,17 @@
   (define-key paredit-mode-map (kbd "M-s") 'paredit-forward-down)
   (define-key paredit-mode-map (kbd "RET") 'paredit-newline))
 
+(define-prefix-command 'mavbozo/paredit-keymap)
+(define-key global-map (kbd "M-p") 'mavbozo/paredit-keymap)
+(define-key mavbozo/paredit-keymap (kbd "d") 'delete-indentation)
+
 
 ;; add my cryptonym generator from local disk
 (add-to-list 'load-path "/Users/mavbozo/yolo/bloir")
+
+(use-package direnv
+     :ensure t
+     :config
+  (direnv-mode))
+
+(setq direnv-always-show-summary t)
