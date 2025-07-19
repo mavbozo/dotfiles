@@ -2,12 +2,12 @@
 
 ;; First install the package:
 (use-package flycheck-clj-kondo
-  :defer t)
+  :ensure nil)
 
 ;; Clay package
-(setq mavbozo/clay-package-dir (xah-get-fullpath "../ext-packages/clay.el"))
-(use-package clay
-  :load-path mavbozo/clay-package-dir)
+;; (setq mavbozo/clay-package-dir (xah-get-fullpath "../ext-packages/clay.el"))
+;; (use-package clay
+;;   :load-path mavbozo/clay-package-dir)
 
 
 (defun mavbozo/cider-dev>reset ()
@@ -70,7 +70,8 @@
 
 (defun mavbozo/cider-mode-hook-fn ()
   (interactive)
-  (require 'clay)
+  ;; TODO: fix clay
+  ;; (require 'clay)
   (progn
     ;; create a keymap
     (define-prefix-command 'mavbozo/cider-leader-map)
