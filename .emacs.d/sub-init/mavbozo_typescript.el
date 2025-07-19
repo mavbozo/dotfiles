@@ -3,7 +3,7 @@
 (defun setup-tide-mode ()
   (interactive)
   (tide-setup)
-  ;; (flycheck-mode +1)
+  (flycheck-mode +1)
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
   (eldoc-mode +1)
   (tide-hl-identifier-mode +1)
@@ -17,17 +17,26 @@
 ;; (setq company-tooltip-align-annotations t)
 
 (use-package typescript-mode
+  :ensure nil
   :mode ("\\.ts\\'" . typescript-mode)
   ("\\.tsx\\'" . typescript-mode)
-  :hook
-  ;; (typescript-mode . lsp-deferred)
-  ((typescript-mode . prettier-mode)
-   ))
+  ;; :hook
+  ;; ;; (typescript-mode . lsp-deferred)
+  ;; ((typescript-mode . prettier-mode))
+  :init
+  (autoload 'typescript-mode "typescript-mode" nil t))
 
 
 (use-package tide
-  :defer t
-  :after (typescript-mode)
-  :hook ((typescript-mode . setup-tide-mode))
-  )
+  :ensure nil
+  :after (typescript-mode company flycheck)
+  :hook ((typescript-mode . tide-setup)
+         (typescript-mode . tide-hl-identifier-mode)
+         (before-save . tide-format-before-save)))
 
+
+;; (use-package tide
+;;   :ensure nil
+;;   :defer t
+;;   :after (typescript-mode)
+;;   :hook ((typescript-mode . setup-tide-mode)))

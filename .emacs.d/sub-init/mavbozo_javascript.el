@@ -46,27 +46,31 @@
 
 
 ;; LSP
-(use-package js2-mode
-  :defer t
-  :mode
-  (("\\.js\\'" . js-mode)
-   ("\\.jsx?\\'" . js-mode))
-  :hook
-  (
-   (js-mode . js2-minor-mode)
-   (js-mode . lsp-deferred)
-   )
-  :config
-  (define-key js-mode-map (kbd "M-.") nil)
-  )
+;; (use-package js2-mode
+;;   :defer t
+;;   :mode
+;;   (("\\.js\\'" . js-mode)
+;;    ("\\.jsx?\\'" . js-mode))
+;;   :hook
+;;   (
+;;    (js-mode . js2-minor-mode)
+;;    (js-mode . lsp-deferred)
+;;    )
+;;   :config
+;;   (define-key js-mode-map (kbd "M-.") nil)
+;;   )
 ;; END LSP
 
-(use-package json-mode
-  :defer t
-  :mode ("\\.json\\'" . json-mode))
+;; (use-package json-mode
+;;   :defer t
+;;   :mode ("\\.json\\'" . json-mode))
 
 
-
+;; (setenv "NODE_PATH" "~/.nix-profile/lib/node_modules")
 
 (use-package prettier
-  :hook (js-mode . prettier-mode))
+  :ensure nil
+  :hook (js-mode . prettier-mode)
+  :init (autoload 'prettier-mode "prettier" nil t)
+  :config
+  (setenv "NODE_PATH" (concat (getenv "HOME") "/.nix-profile/lib/node_modules")))
