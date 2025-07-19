@@ -122,6 +122,17 @@ To solve this problem, when your code only knows the relative path of another fi
 
 (package-initialize)
 
+(setq package-load-list '((magit nil)
+			   (tide nil)
+			   (flycheck nil)
+			   (prettier nil)
+			   (flycheck-clj-kondo nil)))
+
+;; (setq package-enable-at-startup nil)
+;; (package-initialize nil)
+;; (setq package-archives nil)  ; Clear any package repositories
+
+
 ;; INSTALL PACKAGE WHEN NOT INSTALLED
 (when (not package-archive-contents)
   (package-refresh-contents))
@@ -236,6 +247,7 @@ To solve this problem, when your code only knows the relative path of another fi
 ;;;; MAGIT
 
 (use-package magit
+  :ensure nil
   :commands magit-status
   :config
   (setq magit-completing-read-function 'ivy-completing-read))
