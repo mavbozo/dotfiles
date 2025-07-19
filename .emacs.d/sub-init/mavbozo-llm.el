@@ -23,7 +23,8 @@
 
   (gptel-make-anthropic "anthropic"
     :stream t
-    :key gptel-anthropic-api-token)
+    :key gptel-anthropic-api-token
+    )
 
   ;; Default OpenRouter offers an OpenAI compatible API
   (setq gpt-model 'deepseek/deepseek-chat
@@ -32,7 +33,7 @@
 		    :endpoint "/api/v1/chat/completions"
 		    :stream t
 		    :key gptel-openrouter-api-token ;can be a function that returns the key
-		    :models '(deepseek/deepseek-chat
+		    :models '(deepseek/deepseek-chat-v3-0324
 			       deepseek/deepseek-r1
 			       anthropic/claude-3.7-sonnet:beta
 			       anthropic/claude-3.5-sonnet:beta
@@ -40,6 +41,7 @@
 			       anthropic/claude-3.5-haiku-20241022:beta
 			       openai/gpt-4o-2024-11-20
 			       openai/o1
+			       google/gemini-2.5-pro-preview-03-25
 			       )))
   
   ;; setup other keys because xah-fly-keys overshadows the default keys
@@ -75,6 +77,7 @@
 (define-key mavbozo/llm-keymap (kbd "b") 'gptel)
 (define-key mavbozo/llm-keymap (kbd "m") 'gptel-menu)
 (define-key mavbozo/llm-keymap (kbd "r") 'gptel-rewrite)
+(define-key mavbozo/llm-keymap (kbd "t r") 'mavbozo/remove-gptel-text-property)
 
 
 ;; enable more advanced settings in gptel-menu
@@ -91,7 +94,7 @@
 ;; (load "/home/mavbozo/dotfiles/.emacs.d/ext-packages/claude-shell/claude-shell-fontifier.el")
 ;; (load "/home/mavbozo/dotfiles/.emacs.d/ext-packages/claude-shell/claude-shell.el")
 
-(defun remove-gptel-property ()
+(defun mavbozo/remove-gptel-text-property ()
   "Remove the `gptel` text property from the selected region."
   (interactive)
   (when (use-region-p)
