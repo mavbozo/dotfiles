@@ -1,5 +1,8 @@
-;; require xah-fly-keys
+;; use y/n
 
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; require xah-fly-keys
 (defun mavbozo/xah-fly-keys-mode ()
   "Toggle `xah-fly-keys' mode.
 Enable xah-fly-keys if it's disabled, disable if it's enabled."
@@ -64,6 +67,7 @@ Enable xah-fly-keys if it's disabled, disable if it's enabled."
 (define-key mavbozo/personal-keymap (kbd "g") 'counsel-ag)
 (define-key mavbozo/personal-keymap (kbd "f") 'counsel-git)
 (define-key mavbozo/personal-keymap (kbd "c") 'counsel-company)
+(define-key mavbozo/personal-keymap (kbd "r") 'revert-buffer)
 
 
 ;; mavbozo other keymap
@@ -98,3 +102,29 @@ Enable xah-fly-keys if it's disabled, disable if it's enabled."
 ;; Default set to t, slow down when scrolling with mark on.
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Primary-Selection.html
 (setq select-active-regions nil)
+
+;; pageup pagedown command
+
+(global-set-key (kbd "M-u") 'scroll-up-command)
+(global-set-key (kbd "M-i") 'scroll-down-command)
+
+;; 
+(defun sort-lines-in-buffer ()
+  "Sort lines in the current buffer in-place."
+  (interactive)
+  (sort-lines nil (point-min) (point-max)))
+
+
+(defun move-down-5-lines ()
+  (interactive)
+  (forward-line 5))
+
+(defun move-up-5-lines ()
+  (interactive)
+  (forward-line -5))
+
+(global-set-key (kbd "M-r") 'move-down-5-lines)
+(global-set-key (kbd "M-e") 'move-up-5-lines)
+
+;; ANKI
+;; (use-package org-anki)
