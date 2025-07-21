@@ -137,7 +137,7 @@
 (add-to-list 'load-path "/Users/mavbozo/yolo/bloir")
 
 (use-package direnv
-     :ensure t
+     :ensure nil
      :config
   (direnv-mode))
 

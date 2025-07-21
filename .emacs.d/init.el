@@ -123,6 +123,7 @@ To solve this problem, when your code only knows the relative path of another fi
 (package-initialize)
 
 (setq package-load-list '((magit nil)
+			   (company nil)
 			   (tide nil)
 			   (flycheck nil)
 			   (prettier nil)
@@ -285,7 +286,8 @@ To solve this problem, when your code only knows the relative path of another fi
 
 
 ;; COMPANY MODE
-(use-package company)
+(use-package company
+  :ensure nil)
 (add-hook 'after-init-hook 'global-company-mode)
 
 ;; FOR WSL2 Environment, display gpg prompt 
