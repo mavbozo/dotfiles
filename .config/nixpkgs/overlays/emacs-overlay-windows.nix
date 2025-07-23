@@ -10,6 +10,6 @@ let
 in
 {
   emacs-unstable = rawOverlay.emacs-unstable.overrideAttrs (old: {
-    configureFlags = old.configureFlags ++ ["--with-xwidgets"];
+    configureFlags = old.configureFlags ++ [];
   });
 }
