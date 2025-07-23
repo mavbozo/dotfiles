@@ -35,13 +35,13 @@
   (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
   (lsp-headerline-breadcrumb-mode))
 
-(use-package lsp-mode
-  :commands (lsp lsp-deferred)
-  :hook (lsp-mode . mavbozo/lsp-mode-setup)
-  :init
-  (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
-  :config
-  (lsp-enable-which-key-integration t))
+;; (use-package lsp-mode
+;;   :commands (lsp lsp-deferred)
+;;   :hook (lsp-mode . mavbozo/lsp-mode-setup)
+;;   :init
+;;   (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
+;;   :config
+;;   (lsp-enable-which-key-integration t))
 
 
 ;;;; OPTIMIZATION
