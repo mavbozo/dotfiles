@@ -128,3 +128,8 @@ Enable xah-fly-keys if it's disabled, disable if it's enabled."
 
 ;; ANKI
 ;; (use-package org-anki)
+
+;; MARKDOWN
+(use-package markdown-mode
+  :mode ("README\\.md\\'" . gfm-mode)
+  :init (setq markdown-command "multimarkdown"))
