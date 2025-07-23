@@ -1,6 +1,6 @@
 ;; You most likely need to adjust this font size for your system!
-(defvar mavbozo/default-font-size 200)
-(defvar mavbozo/default-variable-font-size 200)
+(defvar mavbozo/default-font-size 150)
+(defvar mavbozo/default-variable-font-size 150)
 
 ;; Make frame transparency overridable
 (defvar mavbozo/frame-transparency '(100 . 100))
@@ -122,32 +122,13 @@ To solve this problem, when your code only knows the relative path of another fi
 
 (package-initialize)
 
-(setq package-load-list '((magit nil)
-			   (company nil)
-			   (tide nil)
-			   (flycheck nil)
-			   (prettier nil)
-			   (flycheck-clj-kondo nil)))
-
-;; (setq package-enable-at-startup nil)
-;; (package-initialize nil)
-;; (setq package-archives nil)  ; Clear any package repositories
-
-
 ;; INSTALL PACKAGE WHEN NOT INSTALLED
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-;; INITIALIZE USE-PACKAGE ON NON-LINUX PLATFORMS
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
-
-;; This is only needed once, near the top of the file
 (eval-when-compile
-  ;; Following line is not needed if use-package.el is in ~/.emacs.d
-  (add-to-list 'load-path (xah-get-fullpath ".emacs.d/ext-packages/use-package"))
   (require 'use-package)
-  (setq use-package-always-ensure t))
+  (setq use-package-always-ensure nil)) ; Key change: set to nil for hybrid
 
 ;; SETUP XAH-FLY-KEYS
 (add-to-list 'load-path "~/.emacs.d/ext-packages/xah-fly-keys")
@@ -187,10 +168,12 @@ To solve this problem, when your code only knows the relative path of another fi
 
 ;; RAINBOW DELIMITERS
 (use-package rainbow-delimiters
+  :ensure nil
   :hook (prog-mode . rainbow-delimiters-mode))
 
 ;; NO LITTERING
-(use-package no-littering)
+(use-package no-littering
+  :ensure nil)
 
 ;; no-littering doesn't set this by default so we must place
 ;; auto save files in the same path as it uses for sessions
