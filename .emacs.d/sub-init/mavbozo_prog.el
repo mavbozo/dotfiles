@@ -135,10 +135,3 @@
 
 ;; add my cryptonym generator from local disk
 (add-to-list 'load-path "/Users/mavbozo/yolo/bloir")
-
-(use-package direnv
-     :ensure nil
-     :config
-  (direnv-mode))
-
-(setq direnv-always-show-summary t)

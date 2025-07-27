@@ -284,3 +284,16 @@ To solve this problem, when your code only knows the relative path of another fi
 (setq gc-cons-threshold (* 2 1000 1000))
 
 (put 'narrow-to-region 'disabled nil)
+
+;; DIRENV
+
+;; (use-package direnv
+;;      :ensure nil
+;;      :config
+;;   (direnv-mode))
+
+;; (setq direnv-always-show-summary t)
+
+
+(use-package envrc
+  :hook (after-init . envrc-global-mode))

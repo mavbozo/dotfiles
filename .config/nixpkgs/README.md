@@ -9,9 +9,27 @@ nix-env -iA nixpkgs.myPackages
 
 ## env.nix
 
+Full rebuilt
 
-## Cachix
+```sh
+nix-env -irf env.nix
+``
 
+Just update
+
+```sh
+nix-env -if env.nix
+``
+
+
+
+
+
+## Possible speedup using Cachix
+
+Use cache.
+
+Install instruction
 with nix installed
 
 `nix-env -iA cachix -f https://cachix.org/api/v1/install`

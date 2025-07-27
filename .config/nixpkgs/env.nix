@@ -37,6 +37,7 @@ with import <nixpkgs> {}; [
 
   # nix
   emacsPackages.nix-mode
+  emacsPackages.envrc
 
   emacsPackages.no-littering
 
@@ -47,4 +48,6 @@ with import <nixpkgs> {}; [
   emacsPackages.cider
 
   emacsPackages.markdown-mode
+
+  
 ]
