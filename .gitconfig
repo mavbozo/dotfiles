@@ -8,12 +8,12 @@
 	rebase = false
 [url "https://"]
 	insteadOf = git://
-[includeIf "gitdir:~/yolo/zenius/"]
-        path = ~/.gitconfig_zenius
-[includeIf "gitdir:~/yolo/zen-skuad/"]
-        path = ~/.gitconfig_zenius
-[includeIf "gitdir:~/yolo/zen-progen/"]
-	path = ~/.gitconfig_zenius   			
+# [includeIf "gitdir:~/yolo/zenius/"]
+#         path = ~/.gitconfig_zenius
+# [includeIf "gitdir:~/yolo/zen-skuad/"]
+#         path = ~/.gitconfig_zenius
+# [includeIf "gitdir:~/yolo/zen-progen/"]
+# 	path = ~/.gitconfig_zenius
 [credential]
 	helper = cache
 [filter "lfs"]
@@ -21,5 +21,5 @@
 	required = true
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
-[gpg]
-	program = /opt/homebrew/bin/gpg
+# [gpg]
+# 	program = /opt/homebrew/bin/gpg
