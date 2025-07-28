@@ -49,5 +49,15 @@ with import <nixpkgs> {}; [
 
   emacsPackages.markdown-mode
 
-  
+  emacsPackages.keyfreq
+
+  emacsPackages.ivy
+
+  emacsPackages.counsel
+
+  emacsPackages.ag
+
+  emacsPackages.common-lisp-snippets
+
+  emacsPackages.doom-themes
 ]
