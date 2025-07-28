@@ -81,11 +81,11 @@
 
   ;; clj -M:cider/repl
   :cider/repl
-  {:extra-deps {cider/cider-nrepl {:mvn/version "0.50.2"}}
+  {:extra-deps {cider/cider-nrepl {:mvn/version "0.57.0"}}
    :main-opts ["-m" "nrepl.cmdline" "--middleware" "[cider.nrepl/cider-middleware]"]}
 
   :cider/repl-w-mcp
-  {:extra-deps {cider/cider-nrepl {:mvn/version "0.50.2"}}
+  {:extra-deps {cider/cider-nrepl {:mvn/version "0.57.0"}}
    :jvm-opts ["-Djdk.attach.allowAttachSelf"]						 
    :main-opts ["-m" "nrepl.cmdline" "--port" "7888" "--middleware" "[cider.nrepl/cider-middleware]"]}
 
