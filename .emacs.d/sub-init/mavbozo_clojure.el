@@ -35,7 +35,7 @@
     ;; create a keymap
     (define-prefix-command 'mavbozo/clojure-leader-map)
     ;; add keys to it
-    (define-key mavbozo/clojure-leader-map (kbd "i") 'inf-clojure)
+    ;; (define-key mavbozo/clojure-leader-map (kbd "i") 'inf-clojure)
     (define-key mavbozo/clojure-leader-map (kbd "c") 'cider-connect)
     (define-key mavbozo/clojure-leader-map (kbd "j") 'cider-jack-in)
     (font-lock-mode -1) ;; i don't want syntax coloring
@@ -150,8 +150,8 @@
   (define-key cider-repl-mode-map (kbd "M-j") mavbozo/cider-repl-leader-map))
 
 (use-package cider
-  :pin melpa-stable
-  :defer t
+  ;; :pin melpa-stable
+  ;; :defer t
   :config
   (setq cider-auto-select-error-buffer nil)
   (define-key cider-mode-map [remap eval-last-sexp] 'cider-eval-last-sexp)
@@ -167,29 +167,29 @@
 ;; (define-prefix-command 'mavbozo-inf-clojure-leader-map)
 ;; (define-key inf-clojure-mode-map (kbd "<f9>") mavbozo-inf-clojure-leader-map)
 
-(use-package inf-clojure
-  :commands (inf-clojure)
-  :defer t
-  ;; :hook (clojure-mode-hook . inf-clojure-minor-mode)
-  ;; :bind
-  ;; ([remap eval-last-sexp] . inf-clojure-eval-last-sexp)
-  ;; ([remap eval-buffer] . inf-clojure-eval-buffer)
-  ;; ([remap eval-buffer] . inf-clojure-eval-buffer)
-  ;; ([remap eval-region] . inf-clojure-eval-region)
-  ;; :bind  (:map inf-clojure-mode-map
-  ;;              ("[S] o" . inf-clojure-clear-repl-buffer)
-  ;; 	       ("[f9] o" . inf-clojure-clear-repl-buffer)
-  ;;              )
-  ;; :config
-  ;; ;; modify the major mode's key map, so that a key becomes your leader key
-  ;; (define-prefix-command 'mavbozo-inf-clojure-leader-map)
-  ;; (define-key inf-clojure-mode-map (kbd "S-a") mavbozo-inf-clojure-leader-map)
-  ;; :after (clojure-mode)
-  :config
-  (define-key inf-clojure-minor-mode-map [remap eval-last-sexp] 'inf-clojure-eval-last-sexp)
-  (define-key inf-clojure-minor-mode-map [remap eval-buffer] 'inf-clojure-eval-buffer)
-  (define-key inf-clojure-minor-mode-map [remap eval-defun] 'inf-clojure-eval-defun)
-  )
+;; (use-package inf-clojure
+;;   :commands (inf-clojure)
+;;   :defer t
+;;   ;; :hook (clojure-mode-hook . inf-clojure-minor-mode)
+;;   ;; :bind
+;;   ;; ([remap eval-last-sexp] . inf-clojure-eval-last-sexp)
+;;   ;; ([remap eval-buffer] . inf-clojure-eval-buffer)
+;;   ;; ([remap eval-buffer] . inf-clojure-eval-buffer)
+;;   ;; ([remap eval-region] . inf-clojure-eval-region)
+;;   ;; :bind  (:map inf-clojure-mode-map
+;;   ;;              ("[S] o" . inf-clojure-clear-repl-buffer)
+;;   ;; 	       ("[f9] o" . inf-clojure-clear-repl-buffer)
+;;   ;;              )
+;;   ;; :config
+;;   ;; ;; modify the major mode's key map, so that a key becomes your leader key
+;;   ;; (define-prefix-command 'mavbozo-inf-clojure-leader-map)
+;;   ;; (define-key inf-clojure-mode-map (kbd "S-a") mavbozo-inf-clojure-leader-map)
+;;   ;; :after (clojure-mode)
+;;   :config
+;;   (define-key inf-clojure-minor-mode-map [remap eval-last-sexp] 'inf-clojure-eval-last-sexp)
+;;   (define-key inf-clojure-minor-mode-map [remap eval-buffer] 'inf-clojure-eval-buffer)
+;;   (define-key inf-clojure-minor-mode-map [remap eval-defun] 'inf-clojure-eval-defun)
+;;   )
 
 ;; (define-prefix-command 'my-keymap)
 
