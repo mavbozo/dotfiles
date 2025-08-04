@@ -11,6 +11,8 @@ with import <nixpkgs> {}; [
   pandoc
   ripgrep
   gnupg
+
+  odin
   
   emacs-unstable # from overlay
 
