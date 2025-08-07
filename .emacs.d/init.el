@@ -98,9 +98,18 @@ To solve this problem, when your code only knows the relative path of another fi
 (if (eq system-type 'darwin)
   (set-face-attribute 'default nil :font "Fira Code Retina" :height mavbozo/default-font-size)
   (progn
+    
     ;; Set the fixed pitch face
-    (when (member "DejaVu Sans Mono" (font-family-list))
-      (set-face-attribute 'default nil :font "DejaVu Sans Mono 18"))))
+    (when (member "Fira Code" (font-family-list))
+      (set-face-attribute 'default nil :font "Fira Code 14"))
+
+    ;; emoji TODO: fix emoji in Windows WSL2
+    ;; (setq use-default-font-for-symbols nil)
+    ;; (set-fontset-font t 'symbol "Noto Color Emoji" nil 'append)
+    ;; Add emoji/Unicode fallback
+    ;; (set-fontset-font t 'symbol (font-spec :family "Noto Color Emoji") nil 'append)
+    ;; (set-fontset-font t 'unicode (font-spec :family "Noto Color Emoji") nil 'append)
+    ))
 
 
 

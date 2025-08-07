@@ -135,3 +135,10 @@
 
 ;; add my cryptonym generator from local disk
 (add-to-list 'load-path "/Users/mavbozo/yolo/bloir")
+
+
+(use-package odin-mode
+  :bind (:map odin-mode-map
+	  ("C-c C-r" . 'odin-run-project)
+	  ("C-c C-c" . 'odin-build-project)
+	  ("C-c C-t" . 'odin-test-project)))
