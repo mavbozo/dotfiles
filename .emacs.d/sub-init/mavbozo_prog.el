@@ -142,3 +142,26 @@
 	  ("C-c C-r" . 'odin-run-project)
 	  ("C-c C-c" . 'odin-build-project)
 	  ("C-c C-t" . 'odin-test-project)))
+
+
+(setq mavbozo/basic-nix-shell
+  "let
+  # nixpkgs = fetchTarball \"https://github.com/NixOS/nixpkgs/tarball/nixos-25.05\";
+  # nixos-25.05 commit c5f08b62ed75415439d48152c2a784e36909b1bc
+  nixpkgx = fetchTarball \"https://github.com/NixOS/nixpkgs/archive/c5f08b62ed75415439d48152c2a784e36909b1bc.tar.gz\";
+  pkgs = import nixpkgs { config = {}; overlays = []; };
+in
+pkgs.mkShellNoCC {
+  buildInputs = [];
+}
+")
+
+
+(defun mavbozo/insert-basic-nix-shell ()
+  (interactive)
+  (insert mavbozo/basic-nix-shell))
+
+
+
+
+
