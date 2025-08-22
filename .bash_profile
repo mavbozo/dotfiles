@@ -22,3 +22,5 @@ export PATH=~/.local/bin:$PATH
 if [ -e /home/mavbozo/.nix-profile/etc/profile.d/nix.sh ]; then . /home/mavbozo/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 export XDG_CONFIG_HOME="$HOME/.config"
+
+eval "$(direnv hook bash)"

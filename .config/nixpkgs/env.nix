@@ -11,6 +11,7 @@ with import <nixpkgs> {}; [
   pandoc
   ripgrep
   gnupg
+  unzip
 
   odin
   

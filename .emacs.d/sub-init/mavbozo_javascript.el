@@ -72,5 +72,6 @@
   :ensure nil
   :hook (js-mode . prettier-mode)
   :init (autoload 'prettier-mode "prettier" nil t)
-  :config
-  (setenv "NODE_PATH" (concat (getenv "HOME") "/.nix-profile/lib/node_modules")))
+  ;; :config
+  ;; (setenv "NODE_PATH" (concat (getenv "HOME") "/.nix-profile/lib/node_modules"))
+  )

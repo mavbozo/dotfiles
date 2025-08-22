@@ -33,7 +33,8 @@
 		    :endpoint "/api/v1/chat/completions"
 		    :stream t
 		    :key gptel-openrouter-api-token ;can be a function that returns the key
-		    :models '(deepseek/deepseek-chat-v3-0324
+		    :models '(deepseek/deepseek-r1-0528
+			       deepseek/deepseek-chat-v3-0324
 			       deepseek/deepseek-r1
 			       anthropic/claude-3.7-sonnet:beta
 			       anthropic/claude-3.5-sonnet:beta
