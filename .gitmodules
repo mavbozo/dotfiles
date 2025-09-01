@@ -22,3 +22,6 @@
 [submodule ".emacs.d/ext-packages/slime"]
 	path = .emacs.d/ext-packages/slime
 	url = git@github.com:mavbozo/slime.git
+[submodule ".emacs.d/ext-packages/odin-mode"]
+	path = .emacs.d/ext-packages/odin-mode
+	url = git@git.sr.ht:~mavbozo/odin-mode

@@ -138,6 +138,7 @@
 
 
 (use-package odin-mode
+  :load-path "ext-packages/odin-mode/"
   :bind (:map odin-mode-map
 	  ("C-c C-r" . 'odin-run-project)
 	  ("C-c C-c" . 'odin-build-project)
