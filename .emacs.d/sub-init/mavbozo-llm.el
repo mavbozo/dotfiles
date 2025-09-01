@@ -43,6 +43,10 @@
 			       openai/gpt-4o-2024-11-20
 			       openai/o1
 			       google/gemini-2.5-pro-preview-03-25
+			       z-ai/glm-4.5
+			       mistralai/mistral-large
+			       qwen/qwen3-14b
+			       cognitivecomputations/dolphin-mistral-24b-venice-edition:free
 			       )))
   
   ;; setup other keys because xah-fly-keys overshadows the default keys

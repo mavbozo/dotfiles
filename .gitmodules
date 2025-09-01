@@ -4,21 +4,12 @@
 [submodule ".emacs.d/ext-packages/xah-fly-keys"]
 	path = .emacs.d/ext-packages/xah-fly-keys
 	url = git@github.com:xahlee/xah-fly-keys.git
-[submodule ".emacs.d/ext-packages/copilot.el"]
-	path = .emacs.d/ext-packages/copilot.el
-	url = git@github.com:zerolfx/copilot.el.git
 [submodule ".emacs.d/ext-packages/yasnippet-snippets"]
 	path = .emacs.d/ext-packages/yasnippet-snippets
 	url = git@github.com:mavbozo/yasnippet-snippets.git
 [submodule ".emacs.d/ext-packages/clay.el"]
 	path = .emacs.d/ext-packages/clay.el
 	url = git@github.com:scicloj/clay.el.git
-[submodule ".emacs.d/ext-packages/chatgpt-shell"]
-	path = .emacs.d/ext-packages/chatgpt-shell
-	url = git@github.com:mavbozo/chatgpt-shell.git
-[submodule ".emacs.d/ext-packages/claude-shell"]
-	path = .emacs.d/ext-packages/claude-shell
-	url = git@github.com:mavbozo/claude-shell.git
 [submodule ".emacs.d/ext-packages/with-editor"]
 	path = .emacs.d/ext-packages/with-editor
 	url = git@github.com:magit/with-editor.git

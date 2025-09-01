@@ -165,3 +165,11 @@ pkgs.mkShellNoCC {
 
 
 
+(defun mavbozo/buffer-to-json-vector ()
+  "Convert lines in current buffer to a JSON vector of strings and replace buffer content."
+  (interactive)
+  (let* ((lines (split-string (buffer-string) "\n" t))  ; t means omit empty strings
+         (json-strings (mapcar #'json-encode-string lines))
+         (json-vector (concat "[" (mapconcat #'identity json-strings ", ") "]")))
+    (erase-buffer)
+    (insert json-vector)))
